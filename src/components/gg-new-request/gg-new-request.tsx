@@ -58,14 +58,14 @@ export class GgNewRequest {
                     </ion-item>
                     <ion-item>
                         <ion-label>Gear</ion-label>
-                        <ion-select okText="Okay" cancelText="Dismiss" multiple="true">
+                        <ion-select okText="Okay" cancelText="Dismiss" multiple={true}>
                             <ion-select-option value="%gear1%">%Gear1%</ion-select-option>
                             <ion-select-option value="%gear2%">%Gear2%</ion-select-option>
                             <ion-select-option value="%gear3%">%Gear3%</ion-select-option>
                         </ion-select>
                     </ion-item>
                 </ion-content>
-                <ion-footer padding>
+                <ion-footer class="ion-padding">
                     <ion-button expand="block" type="submit">
                         Submit Request
                 </ion-button>

@@ -25,7 +25,7 @@ export class GgTeacherView {
                 <ion-card-title>%RequestName%</ion-card-title>
                 <ion-card-subtitle>
                   <ion-chip color="primary">
-                    <ion-icon Name="contact"></ion-icon>
+                    <ion-icon name="contact"></ion-icon>
                     <ion-label>Name</ion-label>
                   </ion-chip>
                   <ion-chip color="secondary">
