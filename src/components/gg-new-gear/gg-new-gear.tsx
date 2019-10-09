@@ -45,7 +45,7 @@ export class GgNewGear {
                   <ion-label>Requires Approval</ion-label>
                   <ion-toggle></ion-toggle>
                 </ion-item>
-                <ion-item><ion-button>Tap NFC Chip</ion-button></ion-item>
+                <ion-item><ion-button>Tap NFC Chip</ion-button><ion-button>Scan QR Code</ion-button></ion-item>
           </ion-list>
           </ion-content>
           <ion-footer>

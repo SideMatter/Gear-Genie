@@ -51,9 +51,10 @@ export class AppRoot {
           <ion-route url="/new-gear" component="gg-new-gear" />
           <ion-route url="/new-request" component="gg-new-request" />
           <ion-route url="/profile" component="gg-profile" /> 
+          <ion-route-redirect from="/" to="/home"></ion-route-redirect>
         </ion-router>
         <ion-split-pane contentId="main">
-          <ion-menu contentId="main" type="overlay">
+          <ion-menu contentId="main" type="overlay"></ion-menu>
             <ion-header>
               <ion-toolbar>
                 <ion-title>Menu</ion-title>
@@ -73,9 +74,8 @@ export class AppRoot {
                 }
               </ion-list>
             </ion-content>
-          </ion-menu>
+          </ion-split-pane>
           <ion-nav id="main"></ion-nav>
-        </ion-split-pane>
       </ion-app>
     );
   }
