@@ -1,12 +1,25 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, State } from '@stencil/core';
 import { modalController, ModalOptions } from '@ionic/core';
+import '@firebase/auth';
+import '@firebase/database';
+import { firestoreDB } from '../../global/firebase';
 
 @Component({
     tag: 'gg-gear',
     styleUrl: 'gg-gear.css'
 })
-export class GgGear {
 
+export class GgGear {
+    @State()
+    gear: Gear[] = [];
+
+    componentDidLoad() {
+        firestoreDB.collection('Gear').onSnapshot(snap => {
+            const gearDocs = snap.docs.map(doc => doc.data() as Gear);
+            console.log('gear', gearDocs);
+            this.gear = gearDocs
+        })
+    }
     async openModal() {
         const modalCtrl = modalController;
         const options: ModalOptions = {
@@ -31,31 +44,16 @@ export class GgGear {
 
                 <ion-content>
                     <div><ion-button>Set Date</ion-button></div>
-                    <ion-list>
-                        <ion-item>
-                            <ion-icon name="videocam" slot="start"></ion-icon>
-                            <ion-label>%Gear1%</ion-label>
+                    {
+                        this.gear.map(gear => <ion-item>
+                            <ion-icon slot="start" name={gear.type == "camera" ? "Videocam" : gear.type == 'lighting' ? "sunny" : "logo-freebsd-devil"}></ion-icon>
+                            <ion-label>{gear.name}</ion-label>
                             <ion-chip color="primary">
                                 <ion-icon name="checkmark-circle"></ion-icon>
                                 <ion-label>Available</ion-label>
                             </ion-chip>
-                        </ion-item>
-                        <ion-item>
-                            <ion-icon name="mic" slot="start"></ion-icon>
-                            <ion-label>%Mic2%</ion-label>
-                            <ion-chip color="danger">
-                                <ion-icon name="close-circle"></ion-icon>
-                                <ion-label>Unavailable</ion-label>
-                            </ion-chip>
-                        </ion-item>  <ion-item>
-                            <ion-icon name="videocam" slot="start"></ion-icon>
-                            <ion-label>%Light3%</ion-label>
-                            <ion-chip color="warning">
-                                <ion-icon name="warning"></ion-icon>
-                                <ion-label>Available with permission</ion-label>
-                            </ion-chip>
-                        </ion-item>
-                    </ion-list>
+                        </ion-item>)
+                    }
                     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                         <ion-fab-button onClick={() => this.openModal()}>
                             <ion-icon name="create"></ion-icon>

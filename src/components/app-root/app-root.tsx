@@ -1,4 +1,7 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
+import '@firebase/auth';
+import '@firebase/database';
+import { firestoreDB } from '../../global/firebase';
 
 @Component({
   tag: 'app-root',
@@ -36,6 +39,18 @@ export class AppRoot {
       icon: 'contact'
     }
   ];
+
+  @State()
+  gear: Gear[] = [];
+
+  componentDidLoad() {
+    firestoreDB.collection('Gear').onSnapshot(snap => {
+      const gearDocs = snap.docs.map(doc => doc.data() as Gear);
+      console.log('gear', gearDocs);
+      this.gear = gearDocs
+    })
+  }
+
   render() {
     return (
 
@@ -50,11 +65,11 @@ export class AppRoot {
           <ion-route url="/teacher-view" component="gg-teacher-view" />
           <ion-route url="/new-gear" component="gg-new-gear" />
           <ion-route url="/new-request" component="gg-new-request" />
-          <ion-route url="/profile" component="gg-profile" /> 
+          <ion-route url="/profile" component="gg-profile" />
           <ion-route-redirect from="/" to="/home"></ion-route-redirect>
         </ion-router>
         <ion-split-pane contentId="main">
-          <ion-menu contentId="main" type="overlay"></ion-menu>
+          <ion-menu contentId="main" type="overlay">
             <ion-header>
               <ion-toolbar>
                 <ion-title>Menu</ion-title>
@@ -73,9 +88,17 @@ export class AppRoot {
                   </ion-menu-toggle>)
                 }
               </ion-list>
+              <ion-list>
+                {
+                  this.gear.map(gear => <ion-item>
+                    {gear.name}
+                  </ion-item>)
+                }
+              </ion-list>
             </ion-content>
-          </ion-split-pane>
+          </ion-menu>
           <ion-nav id="main"></ion-nav>
+        </ion-split-pane>
       </ion-app>
     );
   }
