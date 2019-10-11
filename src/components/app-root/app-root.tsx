@@ -88,13 +88,7 @@ export class AppRoot {
                   </ion-menu-toggle>)
                 }
               </ion-list>
-              <ion-list>
-                {
-                  this.gear.map(gear => <ion-item>
-                    {gear.name}
-                  </ion-item>)
-                }
-              </ion-list>
+             
             </ion-content>
           </ion-menu>
           <ion-nav id="main"></ion-nav>
