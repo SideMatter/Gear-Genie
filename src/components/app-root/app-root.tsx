@@ -2,6 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
 import { firestoreDB } from '../../global/firebase';
+import { Gear } from '../../interfaces';
 
 @Component({
   tag: 'app-root',
@@ -66,7 +67,7 @@ export class AppRoot {
           <ion-route url="/new-gear" component="gg-new-gear" />
           <ion-route url="/new-request" component="gg-new-request" />
           <ion-route url="/profile" component="gg-profile" />
-          <ion-route-redirect from="/" to="/home"></ion-route-redirect>
+          <ion-route url="/add=gear" component="gg-add-gear-to-request"/>
         </ion-router>
         <ion-split-pane contentId="main">
           <ion-menu contentId="main" type="overlay">

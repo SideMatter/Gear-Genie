@@ -1,6 +1,7 @@
 import { Component, Host, h, Prop, State } from '@stencil/core';
 import { InputChangeEventDetail, SelectChangeEventDetail, ToggleChangeEventDetail } from '@ionic/core';
 import { firestoreDB } from '../../global/firebase';
+import { Gear } from '../../interfaces';
 
 
 @Component({

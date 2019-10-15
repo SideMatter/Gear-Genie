@@ -3,6 +3,7 @@ import { modalController, ModalOptions } from '@ionic/core';
 import '@firebase/auth';
 import '@firebase/database';
 import { firestoreDB } from '../../global/firebase';
+import { Gear } from '../../interfaces';
 
 @Component({
     tag: 'gg-gear',

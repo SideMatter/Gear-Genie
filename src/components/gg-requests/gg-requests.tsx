@@ -1,5 +1,7 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, State } from '@stencil/core';
 import { modalController, ModalOptions } from '@ionic/core';
+import { firestoreDB } from '../../global/firebase';
+import { Requests } from '../../interfaces';
 
 
 @Component({
@@ -8,7 +10,16 @@ import { modalController, ModalOptions } from '@ionic/core';
 })
 export class GgRequests {
     // this is where varibles and controllers and funtions go
+    @State()
+    requests: Requests[] = [];
 
+    componentDidLoad() {
+        firestoreDB.collection('Requests').onSnapshot(snap => {
+            const requestDocs = snap.docs.map(doc => doc.data() as Requests);
+            console.log('Requests', requestDocs);
+            this.requests = requestDocs
+        })
+    }
     async openModal() {
         const modalCtrl = modalController;
         const options: ModalOptions = {
@@ -32,36 +43,26 @@ export class GgRequests {
             </ion-header>
 
                 <ion-content>
-                    <ion-card>
-                        <ion-card-header>
-                            <ion-card-title>%Requestname%</ion-card-title>
-                        </ion-card-header>
-                        <ion-card-content>
-                            <ion-list>
-                                <ion-item>
-                                    <ion-icon name="videocam" slot="start"></ion-icon>
-                                    <ion-label>%Gear1%</ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-icon name="mic" slot="start"></ion-icon>
-                                    <ion-label>%Mic1%</ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-icon name="flashlight" slot="start"></ion-icon>
-                                    <ion-label>%Light1%</ion-label>
-                                </ion-item>
-                            </ion-list>
-                            <ion-button expand="block">Edit Request</ion-button>
-                            <ion-chip color="warning">
-                                <ion-icon name="contacts"></ion-icon>
-                                <ion-label>Pending Approval</ion-label>
-                            </ion-chip>
-                            <ion-chip color="primary">
-                                <ion-icon name="time"></ion-icon>
-                                <ion-label>After School</ion-label>
-                            </ion-chip>
-                        </ion-card-content>
-                    </ion-card>
+                {
+                        this.requests.map(requests =><ion-card>
+                            <ion-card-header>
+                                <ion-card-title>{requests.requestname}</ion-card-title>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <ion-list>
+                                </ion-list>
+                                <ion-button expand="block">Edit Request</ion-button>
+                                <ion-chip color="warning">
+                                    <ion-icon name="contacts"></ion-icon>
+                                    <ion-label>{requests.approval}</ion-label>
+                                </ion-chip>
+                                <ion-chip color="primary">
+                                    <ion-icon name="time"></ion-icon>
+                                    <ion-label>{requests.periodfilming}</ion-label>
+                                </ion-chip>
+                            </ion-card-content>
+                        </ion-card>)
+                    }
                     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                         <ion-fab-button onClick={() => this.openModal()}>
                             <ion-icon name="create"></ion-icon>
