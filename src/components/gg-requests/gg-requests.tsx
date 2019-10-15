@@ -50,15 +50,20 @@ export class GgRequests {
                             </ion-card-header>
                             <ion-card-content>
                                 <ion-list>
+                                    <ion-item>{requests.gear}</ion-item>
                                 </ion-list>
                                 <ion-button expand="block">Edit Request</ion-button>
-                                <ion-chip color="warning">
-                                    <ion-icon name="contacts"></ion-icon>
-                                    <ion-label>{requests.approval}</ion-label>
+                                <ion-chip color={requests.status == "needs-approval" ? "warning" : requests.status == 'approved' ? "success" : "danger"}>
+                                    <ion-icon name={requests.status == "needs-approval" ? "contacts" : requests.status == 'approved' ? "checkmark-circle" : "close-circle"}></ion-icon>
+                                    <ion-label>{requests.status == "needs-approval" ? "Approval Needed" : requests.status == 'approved' ? "Approved" : "Declined"}</ion-label>
                                 </ion-chip>
                                 <ion-chip color="primary">
                                     <ion-icon name="time"></ion-icon>
                                     <ion-label>{requests.periodfilming}</ion-label>
+                                </ion-chip>
+                                <ion-chip color="primary">
+                                    <ion-icon name="calendar"></ion-icon>
+                                    <ion-label>{requests.datefilming}</ion-label>
                                 </ion-chip>
                             </ion-card-content>
                         </ion-card>)

@@ -44,6 +44,7 @@ export class GgGear {
                 </ion-header>
 
                 <ion-content>
+                    <ion-datetime></ion-datetime>
                     <div><ion-button>Set Date</ion-button></div>
                     {
                         this.gear.map(gear => <ion-item>

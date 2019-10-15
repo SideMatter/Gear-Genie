@@ -1,16 +1,58 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import {Component, Host, h, Prop} from '@stencil/core';
+import {InputChangeEventDetail, SelectChangeEventDetail, DatetimeChangeEventDetail} from '@ionic/core';
+import {firestoreDB} from '../../global/firebase';
+import {Requests} from '../../interfaces';
 
-@Component({ tag: 'gg-new-request', styleUrl: 'gg-new-request.css' })
+@Component({tag: 'gg-new-request', styleUrl: 'gg-new-request.css'})
 export class GgNewRequest {
+    Requests : Requests = {
+        requestname: null,
+        badgeid: null,
+        datefilming: null,
+        gear: null,
+        periodfilming: null,
+        trellocardlink: null,
+        approval: null,
+        type: null,
+        id : null,
+        status: null,
+    }
+    @Prop()
+    modalCtrl : HTMLIonModalControllerElement;
 
     closeModal() {
         this
             .modalCtrl
             .dismiss();
     }
-
-    @Prop()
-    modalCtrl: HTMLIonModalControllerElement;
+    requestName(e : CustomEvent < InputChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('value', value);
+        this.Requests.requestname = value
+    }
+    requestDateFilming(e : CustomEvent < DatetimeChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('value', value);
+        this.Requests.datefilming = value
+    }
+   
+    requestPeriodFilming(e : CustomEvent < SelectChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('type', value);
+        this.Requests.periodfilming = value
+    }
+    requestTrelloCardLink(e : CustomEvent < InputChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('value', value);
+        this.Requests.trellocardlink = value
+    }
+    addRequest() {
+        console.log('this.requests', this.Requests);
+        firestoreDB
+            .collection("Requests")
+            .add(this.Requests);
+        this.closeModal();
+    }
 
     render() {
         return (
@@ -28,16 +70,25 @@ export class GgNewRequest {
 
                     <ion-item>
                         <ion-label position="floating">Request Name</ion-label>
-                        <ion-input></ion-input>
+                        <ion-input
+                            onIonChange={(e) => this.requestName(e)}
+                            value={this.Requests.requestname}></ion-input>
                     </ion-item>
 
                     <ion-item>
                         <ion-label position="fixed">Date Filming</ion-label>
-                        <ion-input type="date"></ion-input>
+                        <ion-input
+                            type="date"
+                            onIonChange={(e) => this.requestDateFilming(e)}
+                            value={this.Requests.datefilming}></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label>Period Filming</ion-label>
-                        <ion-select okText="Okay" cancelText="Dismiss">
+                        <ion-select
+                            onIonChange={(e) => this.requestPeriodFilming(e)}
+                            value={this.Requests.periodfilming}
+                            okText="Okay"
+                            cancelText="Dismiss">
                             <ion-select-option value="A1">A1</ion-select-option>
                             <ion-select-option value="A2">A2</ion-select-option>
                             <ion-select-option value="A3">A3</ion-select-option>
@@ -52,7 +103,10 @@ export class GgNewRequest {
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Trello Card Link</ion-label>
-                        <ion-input type="url"></ion-input>
+                        <ion-input
+                            type="url"
+                            onIonChange={(e) => this.requestTrelloCardLink(e)}
+                            value={this.Requests.trellocardlink}></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label>Gear</ion-label>
@@ -64,7 +118,7 @@ export class GgNewRequest {
                     </ion-item>
                 </ion-content>
                 <ion-footer class="ion-padding">
-                    <ion-button expand="block" type="submit">
+                    <ion-button expand="block" type="submit" onClick={() => this.addRequest()}>
                         Submit Request
                     </ion-button>
                 </ion-footer>
