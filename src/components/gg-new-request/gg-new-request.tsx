@@ -1,15 +1,12 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
-
-@Component({
-    tag: 'gg-new-request',
-    styleUrl: 'gg-new-request.css'
-})
+@Component({ tag: 'gg-new-request', styleUrl: 'gg-new-request.css' })
 export class GgNewRequest {
 
-
     closeModal() {
-        this.modalCtrl.dismiss();
+        this
+            .modalCtrl
+            .dismiss();
     }
 
     @Prop()
@@ -17,14 +14,15 @@ export class GgNewRequest {
 
     render() {
         return (
-            <Host><ion-header>
-                <ion-toolbar>
-                    <ion-buttons slot="secondary">
-                        <ion-button onClick={() => this.closeModal()}>Cancel</ion-button>
-                    </ion-buttons>
-                    <ion-title>New Request</ion-title>
-                </ion-toolbar>
-            </ion-header>
+            <Host>
+                <ion-header>
+                    <ion-toolbar>
+                        <ion-buttons slot="secondary">
+                            <ion-button onClick={() => this.closeModal()}>Cancel</ion-button>
+                        </ion-buttons>
+                        <ion-title>New Request</ion-title>
+                    </ion-toolbar>
+                </ion-header>
 
                 <ion-content>
 
@@ -68,7 +66,7 @@ export class GgNewRequest {
                 <ion-footer class="ion-padding">
                     <ion-button expand="block" type="submit">
                         Submit Request
-                </ion-button>
+                    </ion-button>
                 </ion-footer>
             </Host>
         );
