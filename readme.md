@@ -20,7 +20,7 @@ Please let me know if there are bugs. This is my first time developing a app and
 
 #**LINK**
 
-link(Gear-genie.firebaseapp.com)
+[Gear Genie v2](Gear-genie.firebaseapp.com)
 
 ## Trello board
 
