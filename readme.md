@@ -9,7 +9,7 @@ The brainchild of Alex Lyman to simplify and expedite video production gear chec
  - Gear requests *Allows team to request gear and administrators to approve requests*
  - Badge management *Show badge, Verify Badge,*
  
-## Planned Features
+# Planned Features
 
  - Team directory *Shows all members in teams*
  - Add team members to requests
@@ -22,9 +22,10 @@ Please let me know if there are bugs. This is my first time developing a app and
 
 [Gear Genie v2](Gear-genie.firebaseapp.com)
 
-## Trello board
+# Trello board
 
 Full of everything I plan to do, am doing and have done. 
+[Trello Board](https://trello.com/b/mAs82Vmo/gear-genie-roadmap)
 
 # Credits
 
