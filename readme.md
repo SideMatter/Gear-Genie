@@ -1,6 +1,6 @@
 # Gear Genie
 
-The brainchild of Alex Lyman to simplify and expedite video production gear checkin/out
+The brainchild of Alex Lyman to simplify and expedite video production gear checkin/out, team management, 
 
 # Features
 
@@ -13,11 +13,16 @@ The brainchild of Alex Lyman to simplify and expedite video production gear chec
 
  - Team directory *Shows all members in teams*
  - Add team members to requests
- - NFC and QR code check in and out *Tap your phone to tags physically on gear or scan QR code's 
-to check in and out. *This feature may or may not happen* * 
+ - NFC and QR code check in and out Tap your phone to tags physically on gear or scan QR code's 
+to check in and out. This feature may or may not happen
  
-Please Let me know if there are bugs. This is my first time developing a app and need to learn.
+Please let me know if there are bugs. This is my first time developing a app and I need to learn.
 
 ## **LINK**
 
 Gear-genie.firebaseapp.com
+
+# Credits
+
+Many thanks to Cory McArther for assisting me in the devolpment of this app. This app would not exist if it wasn't for him. 
+Thanks to Dustin Topham for giving me 5 period of class time for weeks on end to get this done. I hope that the payoff was worth the time investment. 
