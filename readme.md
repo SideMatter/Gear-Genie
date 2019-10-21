@@ -18,9 +18,13 @@ to check in and out. This feature may or may not happen
  
 Please let me know if there are bugs. This is my first time developing a app and I need to learn.
 
-## **LINK**
+#**LINK**
 
-Gear-genie.firebaseapp.com
+link(Gear-genie.firebaseapp.com)
+
+## Trello board
+
+Full of everything I plan to do, am doing and have done. 
 
 # Credits
 
