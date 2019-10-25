@@ -1,4 +1,4 @@
-import {Component, Host, h, Prop} from '@stencil/core';
+import {Component, Host, h, Prop, Method} from '@stencil/core';
 import {InputChangeEventDetail, SelectChangeEventDetail, DatetimeChangeEventDetail} from '@ionic/core';
 import {firestoreDB} from '../../global/firebase';
 import {Requests} from '../../interfaces';
@@ -7,6 +7,7 @@ import {Requests} from '../../interfaces';
 export class GgNewRequest {
     Requests : Requests = {
         requestname: null,
+        username: null,
         badgeid: null,
         datefilming: null,
         gear: null,
@@ -19,6 +20,10 @@ export class GgNewRequest {
     }
     @Prop()
     modalCtrl : HTMLIonModalControllerElement;
+    @Method()
+  addGear(gear) {
+  console.log('gear from other page', gear);
+}
 
     closeModal() {
         this
@@ -29,6 +34,11 @@ export class GgNewRequest {
         const value = e.detail.value;
         console.log('value', value);
         this.Requests.requestname = value
+    }
+    requestUserName(e : CustomEvent < InputChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('value', value);
+        this.Requests.username = value
     }
     requestDateFilming(e : CustomEvent < DatetimeChangeEventDetail >) {
         const value = e.detail.value;
@@ -53,6 +63,7 @@ export class GgNewRequest {
             .add(this.Requests);
         this.closeModal();
     }
+    
 
     render() {
         return (
@@ -68,6 +79,12 @@ export class GgNewRequest {
 
                 <ion-content>
 
+                    <ion-item>
+                        <ion-label position="floating">Request Name</ion-label>
+                        <ion-input
+                            onIonChange={(e) => this.requestName(e)}
+                            value={this.Requests.requestname}></ion-input>
+                    </ion-item>
                     <ion-item>
                         <ion-label position="floating">Request Name</ion-label>
                         <ion-input
@@ -108,14 +125,7 @@ export class GgNewRequest {
                             onIonChange={(e) => this.requestTrelloCardLink(e)}
                             value={this.Requests.trellocardlink}></ion-input>
                     </ion-item>
-                    <ion-item>
-                        <ion-label>Gear</ion-label>
-                        <ion-select okText="Okay" cancelText="Dismiss" multiple={true}>
-                            <ion-select-option value="%gear1%">%Gear1%</ion-select-option>
-                            <ion-select-option value="%gear2%">%Gear2%</ion-select-option>
-                            <ion-select-option value="%gear3%">%Gear3%</ion-select-option>
-                        </ion-select>
-                    </ion-item>
+                    <ion-button expand="block">Add Gear</ion-button>
                 </ion-content>
                 <ion-footer class="ion-padding">
                     <ion-button expand="block" type="submit" onClick={() => this.addRequest()}>

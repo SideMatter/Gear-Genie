@@ -68,6 +68,7 @@ export class AppRoot {
           <ion-route url="/new-request" component="gg-new-request" />
           <ion-route url="/profile" component="gg-profile" />
           <ion-route url="/add-gear" component="gg-add-gear-to-request"/>
+          <ion-route url="/" component="gg-home" />
         </ion-router>
         <ion-split-pane contentId="main">
           <ion-menu contentId="main" type="overlay">

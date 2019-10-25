@@ -16,4 +16,5 @@ interface Requests {
     periodfilming: "A1" | "A2" | "A3" | "A4" | "B5" | "B6" | "B7" | "B8" | "After School" | "Lunch"
     type: "camera" | "microphone" | "lighting" | "other"
     status: "needs-approval" | "approved" | "denied"
+    username: string;
 }

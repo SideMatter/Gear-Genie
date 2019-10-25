@@ -1,4 +1,4 @@
-import { Component, Host, h, State } from '@stencil/core';
+import { Component, Host, h, State, Method } from '@stencil/core';
 import { modalController, ModalOptions } from '@ionic/core';
 import { firestoreDB } from '../../global/firebase';
 import { Requests } from '../../interfaces';
@@ -12,6 +12,10 @@ export class GgRequests {
     // this is where varibles and controllers and funtions go
     @State()
     requests: Requests[] = [];
+    @Method()
+  addGear(gear) {
+  console.log('gear from other page', gear);
+}
 
     componentDidLoad() {
         firestoreDB.collection('Requests').onSnapshot(snap => {
@@ -31,6 +35,10 @@ export class GgRequests {
         const modal = await modalCtrl.create(options);
         modal.present()
     }
+    clickGear(gear){
+        const requestPage = document.querySelector('gg-requests');
+        requestPage.addGear(gear);
+      }
 
 
     render() {

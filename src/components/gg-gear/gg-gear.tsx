@@ -44,8 +44,18 @@ export class GgGear {
                 </ion-header>
 
                 <ion-content>
-                    <ion-datetime></ion-datetime>
-                    <div><ion-button>Set Date</ion-button></div>
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-card-title>
+                                Select Date
+                            </ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                    <ion-datetime value="10/05/2020">
+                        
+                        </ion-datetime>
+                        </ion-card-content>
+                    </ion-card>
                     {
                         this.gear.map(gear => <ion-item>
                             <ion-icon slot="start" name={gear.type == "camera" ? "Videocam" : gear.type == 'lighting' ? "sunny" : "logo-freebsd-devil"}></ion-icon>

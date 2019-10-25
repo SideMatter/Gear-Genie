@@ -1,4 +1,4 @@
-import { Component, Host, h, State } from '@stencil/core';
+import { Component, Host, h, State, Method } from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
 import { firestoreDB } from '../../global/firebase';
@@ -15,6 +15,12 @@ export class GgAddGearToRequest {
     gear: Gear[] = [];
     @State()
     filterType = 'camera'
+    @Method()
+    addGear(gear) {
+    console.log('gear from other page', gear);
+  }
+  
+    
     componentDidLoad() {
         firestoreDB.collection('Gear').onSnapshot(snap => {
             const gearDocs = snap.docs.map(doc => doc.data() as Gear);
@@ -28,6 +34,10 @@ export class GgAddGearToRequest {
         this.filterType = value
         
     }
+    clickGear(gear){
+  const requestPage = document.querySelector('gg-requests');
+  requestPage.addGear(gear);
+}
 
     render() {
         return (
@@ -58,7 +68,7 @@ export class GgAddGearToRequest {
                     <ion-list>
                         {
                             this.gear.filter(gear => gear.type === this.filterType).map(gear =>
-                            <ion-item>
+                            <ion-item onClick={() => this.clickGear(gear)}>
                                 <ion-icon slot="start" name={gear.type == "camera" ? "Videocam" : gear.type == 'lighting' ? "sunny" : "logo-freebsd-devil"}></ion-icon>
                                 <ion-label>{gear.name}</ion-label>
                                 <ion-chip color="primary">
