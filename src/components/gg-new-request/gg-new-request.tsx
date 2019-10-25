@@ -63,6 +63,11 @@ export class GgNewRequest {
             .add(this.Requests);
         this.closeModal();
     }
+    navigateToGear() {
+        const page = document.querySelector("gg-new-request");
+        const nav = page.closest("ion-nav");
+        nav.push("gg-add-gear-to-request");
+      }
     
 
     render() {
@@ -125,7 +130,7 @@ export class GgNewRequest {
                             onIonChange={(e) => this.requestTrelloCardLink(e)}
                             value={this.Requests.trellocardlink}></ion-input>
                     </ion-item>
-                    <ion-button expand="block">Add Gear</ion-button>
+                    <ion-button expand="block" onClick={() => this.navigateToGear()}>Add Gear</ion-button>
                 </ion-content>
                 <ion-footer class="ion-padding">
                     <ion-button expand="block" type="submit" onClick={() => this.addRequest()}>

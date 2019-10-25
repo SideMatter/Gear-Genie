@@ -10,9 +10,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface AppRoot {}
-  interface GgAddGearToRequest {
-    'addGear': (gear: any) => Promise<void>;
-  }
+  interface GgAddGearToRequest {}
   interface GgCheckinout {}
   interface GgDirectory {}
   interface GgGear {}

@@ -62,7 +62,7 @@ export class GgGear {
                             <ion-label>{gear.name}</ion-label>
                             <ion-chip color="primary">
                                 <ion-icon name="checkmark-circle"></ion-icon>
-                                <ion-label>Available</ion-label>
+                                <ion-label>Gear Status Coming #Soon</ion-label>
                             </ion-chip>
                         </ion-item>)
                     }

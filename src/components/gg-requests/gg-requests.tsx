@@ -27,14 +27,17 @@ export class GgRequests {
     async openModal() {
         const modalCtrl = modalController;
         const options: ModalOptions = {
-            component: 'gg-new-request',
-            componentProps: {
-                modalCtrl: modalCtrl
+          component: "ion-nav",
+          componentProps: {
+            root: "gg-new-request",
+            rootParams: {
+              modalCtrl: modalCtrl
             }
+          }
         };
         const modal = await modalCtrl.create(options);
-        modal.present()
-    }
+        modal.present();
+      }
     clickGear(gear){
         const requestPage = document.querySelector('gg-requests');
         requestPage.addGear(gear);

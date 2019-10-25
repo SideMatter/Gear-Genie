@@ -1,51 +1,52 @@
-import { Component, Host, h, State, Method } from '@stencil/core';
+import {Component, Host, h, State,} from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
-import { firestoreDB } from '../../global/firebase';
-import { Gear } from '../../interfaces';
-import { SelectChangeEventDetail } from '@ionic/core';
+import {firestoreDB} from '../../global/firebase';
+import {Gear} from '../../interfaces';
+import {SelectChangeEventDetail} from '@ionic/core';
 
-
-@Component({
-    tag: 'gg-add-gear-to-request',
-    styleUrl: 'gg-add-gear-to-request.css'
-})
+@Component({tag: 'gg-add-gear-to-request', styleUrl: 'gg-add-gear-to-request.css'})
 export class GgAddGearToRequest {
     @State()
-    gear: Gear[] = [];
+    gear : Gear[] = [];
     @State()
     filterType = 'camera'
-    @Method()
-    addGear(gear) {
-    console.log('gear from other page', gear);
-  }
-  
+   
     
+
     componentDidLoad() {
-        firestoreDB.collection('Gear').onSnapshot(snap => {
-            const gearDocs = snap.docs.map(doc => doc.data() as Gear);
-            console.log('gear', gearDocs);
-            this.gear = gearDocs
-        })
+        firestoreDB
+            .collection('Gear')
+            .onSnapshot(snap => {
+                const gearDocs = snap
+                    .docs
+                    .map(doc => doc.data()as Gear);
+                console.log('gear', gearDocs);
+                this.gear = gearDocs
+            })
     }
-    segmentChanged(e: CustomEvent<SelectChangeEventDetail>) {
+    segmentChanged(e : CustomEvent < SelectChangeEventDetail >) {
         const value = e.detail.value;
         console.log('segmentChanged', value);
         this.filterType = value
-        
-    }
-    clickGear(gear){
-  const requestPage = document.querySelector('gg-requests');
-  requestPage.addGear(gear);
-}
 
+    }
+    clickGear(gear) {
+        const requestPage = document.querySelector("gg-new-request");
+        requestPage.addGear(gear);
+        const nav = requestPage.closest("ion-nav");
+        nav.pop();
+      }
+   
     render() {
         return (
             <Host>
 
                 <ion-header>
                     <ion-toolbar>
-                        <ion-menu-button slot="start"></ion-menu-button>
+                        <ion-buttons slot="start">
+                            <ion-back-button/>
+                        </ion-buttons>
                         <ion-title>Add Gear</ion-title>
                     </ion-toolbar>
                     <ion-segment onIonChange={e => this.segmentChanged(e)}>
@@ -66,17 +67,24 @@ export class GgAddGearToRequest {
 
                 <ion-content>
                     <ion-list>
-                        {
-                            this.gear.filter(gear => gear.type === this.filterType).map(gear =>
-                            <ion-item onClick={() => this.clickGear(gear)}>
-                                <ion-icon slot="start" name={gear.type == "camera" ? "Videocam" : gear.type == 'lighting' ? "sunny" : "logo-freebsd-devil"}></ion-icon>
+                        {this
+                            .gear
+                            .filter(gear => gear.type === this.filterType)
+                            .map(gear => <ion-item onClick={() => this.clickGear(gear)}>
+                                <ion-icon
+                                    slot="start"
+                                    name={gear.type == "camera"
+                                    ? "Videocam"
+                                    : gear.type == 'lighting'
+                                        ? "sunny"
+                                        : "logo-freebsd-devil"}></ion-icon>
                                 <ion-label>{gear.name}</ion-label>
                                 <ion-chip color="primary">
                                     <ion-icon name="checkmark-circle"></ion-icon>
                                     <ion-label>Available</ion-label>
                                 </ion-chip>
                             </ion-item>)
-                        }
+}
                     </ion-list>
                 </ion-content>
 
