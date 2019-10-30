@@ -11,7 +11,7 @@ import { school_id, gear_by_id, generateGearById } from '../../global/constants'
 })
 export class GgRequests {
     // this is where varibles and controllers and funtions go
-    Requests : Requests = {
+    Requests: Requests = {
         requestname: null,
         requestedGear: [],
         username: null,
@@ -26,61 +26,61 @@ export class GgRequests {
     @State()
     requests: Requests[] = [];
     @State()
-    requestedGear : string[] = [];
+    requestedGear: string[] = [];
     @State()
-    gear : Gear[] = [];
-    
-    @Method()
-  async addGear(gear) {
-  console.log('gear from other page', gear);
-  this.requestedGear = [
-    ...this.requestedGear,
-    gear.id,
-   
-    
-];
+    gear: Gear[] = [];
 
-}
-clickGear(gear){
-    const requestPage = document.querySelector('gg-requests');
-    requestPage.addGear(gear);
-  }
+    @Method()
+    async addGear(gear) {
+        console.log('gear from other page', gear);
+        this.requestedGear = [
+            ...this.requestedGear,
+            gear.id,
+
+
+        ];
+
+    }
+    clickGear(gear) {
+        const requestPage = document.querySelector('gg-requests');
+        requestPage.addGear(gear);
+    }
     componentDidLoad() {
         firestoreDB.collection(`/schools/${school_id}/requests`).onSnapshot(snap => {
             const requestDocs = snap.docs.map(doc => doc.data() as Requests);
             console.log('Requests', requestDocs);
             this.requests = requestDocs
             firestoreDB
-            .collection(`/schools/${school_id}/gear`)
-            .onSnapshot(snap => {
-                const gearDocs = snap
-                    .docs
-                    .map(doc => {
-                        const gear = doc.data() as Gear;
-                        gear.id = doc.id;
-                        return gear
-                    });
-                console.log('gear', gearDocs);
-                this.gear = gearDocs
-                generateGearById(gearDocs)
-            })
+                .collection(`/schools/${school_id}/gear`)
+                .onSnapshot(snap => {
+                    const gearDocs = snap
+                        .docs
+                        .map(doc => {
+                            const gear = doc.data() as Gear;
+                            gear.id = doc.id;
+                            return gear
+                        });
+                    console.log('gear', gearDocs);
+                    this.gear = gearDocs
+                    generateGearById(gearDocs)
+                })
         })
     }
     async openModal() {
         const modalCtrl = modalController;
         const options: ModalOptions = {
-          component: "ion-nav",
-          componentProps: {
-            root: "gg-new-request",
-            rootParams: {
-              modalCtrl: modalCtrl
+            component: "ion-nav",
+            componentProps: {
+                root: "gg-new-request",
+                rootParams: {
+                    modalCtrl: modalCtrl
+                }
             }
-          }
         };
         const modal = await modalCtrl.create(options);
         modal.present();
-      }
-    
+    }
+
 
 
     render() {
@@ -93,54 +93,54 @@ clickGear(gear){
             </ion-header>
 
                 <ion-content>
-                {
-                        this.requests.map(requests =><ion-card>
+                    {
+                        this.requests.map(requests => <ion-card>
                             <ion-card-header>
                                 <ion-card-title>{requests.requestname}</ion-card-title>
                             </ion-card-header>
                             <ion-card-content>
                                 <ion-list>
-                                    <ion-item>{this
-                                .requestedGear
-                                .map(gearid => <ion-item>
-                                     <ion-icon
-                                        slot="start"
-                                        name={gear_by_id[gearid].type == "camera"
-                                        ? "Videocam"
-                                        : gear_by_id[gearid].type == 'lighting'
-                                            ? "sunny"
-                                            : "logo-freebsd-devil"}></ion-icon>
-                                            
-                                    <ion-label>{gear_by_id[gearid].name}</ion-label> 
-                                    
-                                </ion-item>)
-}</ion-item>
+                                    <ion-item>{requests
+                                        .requestedGear
+                                        .map(gearid => <ion-item>
+                                            <ion-icon
+                                                slot="start"
+                                                name={gear_by_id[gearid].type == "camera"
+                                                    ? "Videocam"
+                                                    : gear_by_id[gearid].type == 'lighting'
+                                                        ? "sunny"
+                                                        : "logo-freebsd-devil"}></ion-icon>
+
+                                            <ion-label>{gear_by_id[gearid].name}</ion-label>
+
+                                        </ion-item>)
+                                    }</ion-item>
                                 </ion-list>
-                                
+
                                 <ion-button expand="block">Edit Request</ion-button>
-                                
+
                                 <ion-chip
                                     color={requests.status == "denied"
-                                    ? "danger"
-                                    : requests.status == 'approved'
-                                        ? "success"
-                                        : "warning"}>
+                                        ? "danger"
+                                        : requests.status == 'approved'
+                                            ? "success"
+                                            : "warning"}>
                                     <ion-icon
                                         name={requests.status == "denied"
-                                        ? "close-circle"
-                                        : requests.status == 'approved'
-                                            ? "checkmark-circle"
-                                            : "contacts"}></ion-icon>
-                                    <ion-label>{requests.status == "denied"
-                                            ? "Declined"
+                                            ? "close-circle"
                                             : requests.status == 'approved'
-                                                ? "Approved"
-                                                : "Needs Approval"}</ion-label>
+                                                ? "checkmark-circle"
+                                                : "contacts"}></ion-icon>
+                                    <ion-label>{requests.status == "denied"
+                                        ? "Declined"
+                                        : requests.status == 'approved'
+                                            ? "Approved"
+                                            : "Needs Approval"}</ion-label>
                                 </ion-chip>
                                 <ion-chip color="primary">
                                     <ion-icon name="time"></ion-icon>
                                     <ion-label>{requests.periodfilming}</ion-label>
-                                    
+
                                 </ion-chip>
                                 <ion-chip color="primary">
                                     <ion-icon name="calendar"></ion-icon>
@@ -150,7 +150,7 @@ clickGear(gear){
                                     <ion-icon name="contact"></ion-icon>
                                     <ion-label>{requests.username}</ion-label>
                                 </ion-chip>
-                                
+
                             </ion-card-content>
                         </ion-card>)
                     }
@@ -160,9 +160,7 @@ clickGear(gear){
                         </ion-fab-button>
                     </ion-fab>
                 </ion-content>
-                <ion-footer>
-                    <ion-button expand="block">Return Gear</ion-button>
-                </ion-footer>
+                
             </Host>
         );
     }

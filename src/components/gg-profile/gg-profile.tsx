@@ -31,6 +31,18 @@ export class GgProfile {
       </ion-header>
 
         <ion-content>
+          <ion-card color="danger">
+            <ion-card-header>
+              <ion-card-title>
+                WARNING
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-card-body>
+                This screen is not completed yet. Using it will break things. Don't use it. -Alex
+              </ion-card-body>
+            </ion-card-content>
+          </ion-card>
           <div><ion-button>Add Badge Using NFC</ion-button>
             <ion-button color="secondary">Add Badge Using Code</ion-button></div>
           <ion-card color="dark">

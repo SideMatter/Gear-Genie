@@ -39,10 +39,7 @@ export class GgHome {
                         </ion-card-content>
                     </ion-card>
                 </ion-content>
-                <ion-footer>
-                    <ion-button href="/checkinout" expand="block">Check Out Gear</ion-button>
-                    <ion-button href="/checkinout" expand="block">Return Gear</ion-button>
-                </ion-footer>
+                
             </Host>
 
         );
