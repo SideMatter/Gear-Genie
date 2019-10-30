@@ -1,8 +1,6 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
-import { firestoreDB } from '../../global/firebase';
-import { Gear } from '../../interfaces';
 
 @Component({
   tag: 'app-root',
@@ -40,17 +38,6 @@ export class AppRoot {
       icon: 'contact'
     }
   ];
-
-  @State()
-  gear: Gear[] = [];
-
-  componentDidLoad() {
-    firestoreDB.collection('Gear').onSnapshot(snap => {
-      const gearDocs = snap.docs.map(doc => doc.data() as Gear);
-      console.log('gear', gearDocs);
-      this.gear = gearDocs
-    })
-  }
 
   render() {
     return (

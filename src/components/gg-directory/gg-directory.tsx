@@ -1,12 +1,25 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, State } from '@stencil/core';
+import { firestoreDB } from '../../global/firebase';
+import { Badges } from '../../interfaces';
+import { school_id } from '../../global/constants';
 
 
 @Component({
     tag: 'gg-directory',
     styleUrl: 'gg-directory.css'
 })
-export class GgDirectory {
 
+export class GgDirectory {
+ 
+  componentDidLoad() {
+    firestoreDB.collection(`/schools/${school_id}/badges`).onSnapshot(snap => {
+        const badgesDocs = snap.docs.map(doc => doc.data() as Badges);
+        console.log('Badges', badgesDocs);
+        this.Badges = badgesDocs
+    })
+  }
+@State()
+Badges: Badges[];
     
 
     render() {
@@ -20,46 +33,27 @@ export class GgDirectory {
           
           <ion-content>
             <ion-list>
-              <ion-item>
-                <ion-label>Alex Lyman</ion-label>
-                <ion-chip>
-                    <ion-label>Badge ID:177001</ion-label>
+              <ion-item color="warning"> 
+                <ion-label>
+                  DTOP 👑
+                </ion-label>
+                  <ion-chip >
+                    <ion-label>Teacher, Producer, Benovlent Dictator</ion-label>
                   </ion-chip>
               </ion-item>
-              <ion-item>
-                <ion-label>Eric Phillips</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Dustin Dean Topham</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>IDK more people lol</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Avery Webb</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pokémon Yellow</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pokémon Yellow</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pokémon Yellow</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pokémon Yellow</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pokémon Yellow</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pokémon Yellow</ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pokémon Yellow</ion-label>
-              </ion-item>
-            </ion-list>
+              {this.Badges.map(Badges =><ion-item>
+                <ion-label>{Badges.name}</ion-label>
+                <ion-chip>
+                    <ion-label>Badge ID:{Badges.NFCbadgeid}</ion-label>
+                  </ion-chip>
+                  <ion-chip>
+                    <ion-label>{Badges.day}</ion-label>
+                  </ion-chip>
+                  <ion-chip>
+                    <ion-label>{Badges.permslevel}</ion-label>
+                  </ion-chip>
+              </ion-item>)}
+             </ion-list>
           </ion-content></Host>
         )}
 }

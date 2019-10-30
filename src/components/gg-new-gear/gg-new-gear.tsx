@@ -2,14 +2,17 @@ import {Component, Host, h, Prop, State} from '@stencil/core';
 import {InputChangeEventDetail, SelectChangeEventDetail, ToggleChangeEventDetail} from '@ionic/core';
 import {firestoreDB} from '../../global/firebase';
 import {Gear} from '../../interfaces';
+import { school_id } from '../../global/constants';
 
 @Component({tag: 'gg-new-gear', styleUrl: 'gg-new-gear.css'})
 export class GgNewGear {
+    
     @State()
     gear : Gear = {
         name: null,
         type: null,
-        approvalNeeded: false
+        approvalNeeded: false,
+        id: null,
     }
     @Prop()
     modalCtrl : HTMLIonModalControllerElement;
@@ -39,7 +42,7 @@ export class GgNewGear {
 
         console.log('this.gear', this.gear);
         firestoreDB
-            .collection("Gear")
+            .collection(`/schools/${school_id}/gear`)
             .add(this.gear);
         this.closeModal();
     }

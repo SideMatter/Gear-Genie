@@ -3,24 +3,29 @@ import { modalController, ModalOptions } from '@ionic/core';
 import '@firebase/auth';
 import '@firebase/database';
 import { firestoreDB } from '../../global/firebase';
+import { school_id } from '../../global/constants';
 import { Gear } from '../../interfaces';
 
-@Component({
-    tag: 'gg-gear',
-    styleUrl: 'gg-gear.css'
-})
+@Component({ tag: 'gg-gear', styleUrl: 'gg-gear.css' })
 
 export class GgGear {
     @State()
     gear: Gear[] = [];
 
     componentDidLoad() {
-        firestoreDB.collection('Gear').onSnapshot(snap => {
-            const gearDocs = snap.docs.map(doc => doc.data() as Gear);
-            console.log('gear', gearDocs);
-            this.gear = gearDocs
-        })
-    }
+        firestoreDB
+            .collection(`/schools/${school_id}/gear`)
+            .onSnapshot(snap => {
+                const gearDocs = snap
+                    .docs
+                    .map(doc => doc.data() as Gear);
+                console.log('gear', gearDocs);
+                this.gear = gearDocs
+
+
+            })
+        }
+
     async openModal() {
         const modalCtrl = modalController;
         const options: ModalOptions = {
@@ -44,25 +49,32 @@ export class GgGear {
                 </ion-header>
 
                 <ion-content>
-                    <ion-card>
+                    <ion-card color="danger">
                         <ion-card-header>
-                            <ion-card-title>
-                                Select Date
-                            </ion-card-title>
+
+                            <ion-card-title>WARNING!</ion-card-title>
                         </ion-card-header>
+
                         <ion-card-content>
-                    <ion-datetime value="10/05/2020">
-                        
-                        </ion-datetime>
+                            <ion-text>This page is still in pre-alpha, meaning that it may not work or may
+                                break other things, Using this page you do so at your own risk of loss</ion-text>
+                            <ion-datetime placeholder="Select Date"></ion-datetime>
                         </ion-card-content>
                     </ion-card>
-                    {
-                        this.gear.map(gear => <ion-item>
-                            <ion-icon slot="start" name={gear.type == "camera" ? "Videocam" : gear.type == 'lighting' ? "sunny" : "logo-freebsd-devil"}></ion-icon>
+                    {this
+                        .gear
+                        .map(gear => <ion-item>
+                            <ion-icon
+                                slot="start"
+                                name={gear.type == "camera"
+                                    ? "Videocam"
+                                    : gear.type == 'lighting'
+                                        ? "sunny"
+                                        : "logo-freebsd-devil"}></ion-icon>
                             <ion-label>{gear.name}</ion-label>
                             <ion-chip color="primary">
                                 <ion-icon name="checkmark-circle"></ion-icon>
-                                <ion-label>Gear Status Coming #Soon</ion-label>
+                                <ion-label>Status Coming #Soon</ion-label>
                             </ion-chip>
                         </ion-item>)
                     }

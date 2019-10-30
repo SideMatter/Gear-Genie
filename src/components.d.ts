@@ -6,7 +6,9 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  Gear,
+} from './interfaces';
 
 export namespace Components {
   interface AppRoot {}
@@ -19,7 +21,7 @@ export namespace Components {
     'modalCtrl': HTMLIonModalControllerElement;
   }
   interface GgNewRequest {
-    'addGear': (gear: any) => Promise<void>;
+    'addGear': (gear: Gear) => Promise<void>;
     'modalCtrl': HTMLIonModalControllerElement;
   }
   interface GgProfile {}

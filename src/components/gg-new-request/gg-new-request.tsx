@@ -1,29 +1,45 @@
-import {Component, Host, h, Prop, Method} from '@stencil/core';
+import {
+    Component,
+    Host,
+    h,
+    Prop,
+    Method,
+    State
+} from '@stencil/core';
 import {InputChangeEventDetail, SelectChangeEventDetail, DatetimeChangeEventDetail} from '@ionic/core';
 import {firestoreDB} from '../../global/firebase';
-import {Requests} from '../../interfaces';
+import {Requests, Gear} from '../../interfaces';
+import {school_id, gear_by_id} from '../../global/constants';
 
 @Component({tag: 'gg-new-request', styleUrl: 'gg-new-request.css'})
 export class GgNewRequest {
     Requests : Requests = {
         requestname: null,
+        requestedGear: [],
         username: null,
-        badgeid: null,
         datefilming: null,
-        gear: null,
         periodfilming: null,
         trellocardlink: null,
         approval: null,
-        type: null,
-        id : null,
-        status: null,
+        id: null,
+        status: "needs-approval",
+        type: null
     }
     @Prop()
     modalCtrl : HTMLIonModalControllerElement;
+    @State()
+    requestedGear : string[] = [];
+
     @Method()
-  addGear(gear) {
-  console.log('gear from other page', gear);
-}
+    async addGear(gear : Gear) {
+        console.log('gear from other page', gear);
+        this.requestedGear = [
+            ...this.requestedGear,
+            gear.id
+        ];
+        this.Requests.requestedGear = this.requestedGear
+
+    }
 
     closeModal() {
         this
@@ -45,7 +61,7 @@ export class GgNewRequest {
         console.log('value', value);
         this.Requests.datefilming = value
     }
-   
+
     requestPeriodFilming(e : CustomEvent < SelectChangeEventDetail >) {
         const value = e.detail.value;
         console.log('type', value);
@@ -59,7 +75,7 @@ export class GgNewRequest {
     addRequest() {
         console.log('this.requests', this.Requests);
         firestoreDB
-            .collection("Requests")
+            .collection(`/schools/${school_id}/requests`)
             .add(this.Requests);
         this.closeModal();
     }
@@ -67,8 +83,7 @@ export class GgNewRequest {
         const page = document.querySelector("gg-new-request");
         const nav = page.closest("ion-nav");
         nav.push("gg-add-gear-to-request");
-      }
-    
+    }
 
     render() {
         return (
@@ -91,10 +106,10 @@ export class GgNewRequest {
                             value={this.Requests.requestname}></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="floating">Request Name</ion-label>
+                        <ion-label position="floating">Your Name</ion-label>
                         <ion-input
-                            onIonChange={(e) => this.requestName(e)}
-                            value={this.Requests.requestname}></ion-input>
+                            onIonChange={(e) => this.requestUserName(e)}
+                            value={this.Requests.username}></ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -111,6 +126,7 @@ export class GgNewRequest {
                             value={this.Requests.periodfilming}
                             okText="Okay"
                             cancelText="Dismiss">
+
                             <ion-select-option value="A1">A1</ion-select-option>
                             <ion-select-option value="A2">A2</ion-select-option>
                             <ion-select-option value="A3">A3</ion-select-option>
@@ -131,6 +147,21 @@ export class GgNewRequest {
                             value={this.Requests.trellocardlink}></ion-input>
                     </ion-item>
                     <ion-button expand="block" onClick={() => this.navigateToGear()}>Add Gear</ion-button>
+                    <ion-list>
+                        {this
+                            .requestedGear
+                            .map(gearid => <ion-item>
+                                <ion-icon
+                                    slot="start"
+                                    name={gear_by_id[gearid].type == "camera"
+                                    ? "Videocam"
+                                    : gear_by_id[gearid].type == 'lighting'
+                                        ? "sunny"
+                                        : "logo-freebsd-devil"}></ion-icon>
+                                <ion-label>{gear_by_id[gearid].name}</ion-label>
+                            </ion-item>)
+}
+                    </ion-list>
                 </ion-content>
                 <ion-footer class="ion-padding">
                     <ion-button expand="block" type="submit" onClick={() => this.addRequest()}>

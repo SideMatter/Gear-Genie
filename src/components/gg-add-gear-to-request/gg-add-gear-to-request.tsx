@@ -4,6 +4,7 @@ import '@firebase/database';
 import {firestoreDB} from '../../global/firebase';
 import {Gear} from '../../interfaces';
 import {SelectChangeEventDetail} from '@ionic/core';
+import { school_id, generateGearById } from '../../global/constants';
 
 @Component({tag: 'gg-add-gear-to-request', styleUrl: 'gg-add-gear-to-request.css'})
 export class GgAddGearToRequest {
@@ -16,13 +17,18 @@ export class GgAddGearToRequest {
 
     componentDidLoad() {
         firestoreDB
-            .collection('Gear')
+            .collection(`/schools/${school_id}/gear`)
             .onSnapshot(snap => {
                 const gearDocs = snap
                     .docs
-                    .map(doc => doc.data()as Gear);
+                    .map(doc => {
+                        const gear = doc.data() as Gear;
+                        gear.id = doc.id;
+                        return gear
+                    });
                 console.log('gear', gearDocs);
                 this.gear = gearDocs
+                generateGearById(gearDocs)
             })
     }
     segmentChanged(e : CustomEvent < SelectChangeEventDetail >) {

@@ -1,4 +1,7 @@
 import { Component, Host, h } from '@stencil/core';
+import { firestoreDB } from '../../global/firebase';
+import { Badges } from '../../interfaces';
+import { school_id } from '../../global/constants';
 
 
 @Component({
@@ -6,7 +9,14 @@ import { Component, Host, h } from '@stencil/core';
   styleUrl: 'gg-profile.css'
 })
 export class GgProfile {
-
+  badges: any[];
+  componentDidLoad() {
+    firestoreDB.collection(`/schools/${school_id}/badges`).onSnapshot(snap => {
+        const badgeDocs = snap.docs.map(doc => doc.data() as Badges);
+        console.log('Badges', badgeDocs);
+        this.badges = badgeDocs
+    })
+}
 
 
   render() {
@@ -26,7 +36,7 @@ export class GgProfile {
           <ion-card color="dark">
             <ion-card-content>
               <ion-card-subtitle>
-                UKNIGHTED A-Day, 2020
+                UKNIGHTED A-Day 2020
                 </ion-card-subtitle>
               <ion-card-title>
                 John Doe
@@ -34,7 +44,7 @@ export class GgProfile {
               <ion-card-subtitle>
                 Badge ID: 1920a0001
           </ion-card-subtitle>
-              <ion-chip color="white">Student</ion-chip>
+              <ion-chip color="light">Student</ion-chip>
               <ion-img src="https://i.ibb.co/Jtm9ZS9/Shield-White.png" alt="Shield-White" style={{ border: "0" }}></ion-img>
               <ion-button>Tap Badge</ion-button>
               <ion-button color="secondary">Show Badge QR code</ion-button>
