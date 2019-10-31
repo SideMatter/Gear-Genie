@@ -1,11 +1,15 @@
 import { Component, h } from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
+import { firestoreDB } from '../../global/firebase';
+import { generateGearById, school_id } from '../../global/constants';
+import { Gear } from '../../interfaces';
 
 @Component({
   tag: 'app-root',
   styleUrl: 'app-root.css'
 })
+
 export class AppRoot {
   public appPages = [
     {
@@ -38,7 +42,23 @@ export class AppRoot {
       icon: 'contact'
     }
   ];
-
+  gear: Gear[];
+componentDidLoad() {
+  firestoreDB
+                .collection(`/schools/${school_id}/gear`)
+                .onSnapshot(snap => {
+                    const gearDocs = snap
+                        .docs
+                        .map(doc => {
+                            const gear = doc.data() as Gear;
+                            gear.id = doc.id;
+                            return gear
+                        });
+                    console.log('gear', gearDocs);
+                    this.gear = gearDocs
+                    generateGearById(gearDocs)
+                })
+}
   render() {
     return (
 
@@ -50,11 +70,12 @@ export class AppRoot {
           <ion-route url="/directory" component="gg-directory" />
           <ion-route url="/profile" component="gg-profile" />
           <ion-route url="/checkinout" component="gg-checkinout" />
-          <ion-route url="/teacher-view" component="gg-teacher-view" />
+          <ion-route url="/teacher" component="gg-teacher-view" />
           <ion-route url="/new-gear" component="gg-new-gear" />
           <ion-route url="/new-request" component="gg-new-request" />
           <ion-route url="/profile" component="gg-profile" />
           <ion-route url="/add-gear" component="gg-add-gear-to-request"/>
+          <ion-route url="/auth" component="gg-auth"/>
           <ion-route url="/" component="gg-home" />
         </ion-router>
         <ion-split-pane contentId="main">

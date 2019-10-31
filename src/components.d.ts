@@ -13,6 +13,7 @@ import {
 export namespace Components {
   interface AppRoot {}
   interface GgAddGearToRequest {}
+  interface GgAuth {}
   interface GgCheckinout {}
   interface GgDirectory {}
   interface GgGear {}
@@ -44,6 +45,12 @@ declare global {
   var HTMLGgAddGearToRequestElement: {
     prototype: HTMLGgAddGearToRequestElement;
     new (): HTMLGgAddGearToRequestElement;
+  };
+
+  interface HTMLGgAuthElement extends Components.GgAuth, HTMLStencilElement {}
+  var HTMLGgAuthElement: {
+    prototype: HTMLGgAuthElement;
+    new (): HTMLGgAuthElement;
   };
 
   interface HTMLGgCheckinoutElement extends Components.GgCheckinout, HTMLStencilElement {}
@@ -102,6 +109,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement;
     'gg-add-gear-to-request': HTMLGgAddGearToRequestElement;
+    'gg-auth': HTMLGgAuthElement;
     'gg-checkinout': HTMLGgCheckinoutElement;
     'gg-directory': HTMLGgDirectoryElement;
     'gg-gear': HTMLGgGearElement;
@@ -117,6 +125,7 @@ declare global {
 declare namespace LocalJSX {
   interface AppRoot {}
   interface GgAddGearToRequest {}
+  interface GgAuth {}
   interface GgCheckinout {}
   interface GgDirectory {}
   interface GgGear {}
@@ -134,6 +143,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'app-root': AppRoot;
     'gg-add-gear-to-request': GgAddGearToRequest;
+    'gg-auth': GgAuth;
     'gg-checkinout': GgCheckinout;
     'gg-directory': GgDirectory;
     'gg-gear': GgGear;
@@ -154,6 +164,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'app-root': LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
       'gg-add-gear-to-request': LocalJSX.GgAddGearToRequest & JSXBase.HTMLAttributes<HTMLGgAddGearToRequestElement>;
+      'gg-auth': LocalJSX.GgAuth & JSXBase.HTMLAttributes<HTMLGgAuthElement>;
       'gg-checkinout': LocalJSX.GgCheckinout & JSXBase.HTMLAttributes<HTMLGgCheckinoutElement>;
       'gg-directory': LocalJSX.GgDirectory & JSXBase.HTMLAttributes<HTMLGgDirectoryElement>;
       'gg-gear': LocalJSX.GgGear & JSXBase.HTMLAttributes<HTMLGgGearElement>;
