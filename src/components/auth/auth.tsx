@@ -1,6 +1,8 @@
 import { Component, h,  } from '@stencil/core';
-import firebase from 'firebase/app'
-declare const firebaseui;
+import * as firebase from 'firebase/app'
+import * as firebaseui from 'firebase/app'
+import 'firebase/auth'
+
 
 @Component({
   tag: 'gg-auth',
@@ -10,9 +12,16 @@ export class Auth {
   componentDidLoad() {
    
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', {
+      signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+      ],
+      // Other config options...
+    });
+
     var uiConfig = {
       callbacks: {
-        signInSuccessWithAuthResult: function (_authResult, _redirectUrl) {
+        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
           // User successfully signed in.
           // Return type determines whether we continue the redirect automatically
           // or whether we leave that to developer to handle.

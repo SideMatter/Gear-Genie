@@ -1,8 +1,8 @@
-import { Component, Host, h, State, Method } from '@stencil/core';
+import { Component, Host, h, State, Method, Prop } from '@stencil/core';
 import { modalController, ModalOptions } from '@ionic/core';
 import { firestoreDB } from '../../global/firebase';
 import { Requests, Gear } from '../../interfaces';
-import { school_id, gear_by_id, generateGearById } from '../../global/constants';
+import { school_id,  } from '../../global/constants';
 
 
 @Component({
@@ -29,6 +29,8 @@ export class GgRequests {
     requestedGear: string[] = [];
     @State()
     gear: Gear[] = [];
+    @Prop() 
+    gearById: string; //comes from route url
 
     @Method()
     async addGear(gear) {
@@ -62,7 +64,7 @@ export class GgRequests {
                         });
                     console.log('gear', gearDocs);
                     this.gear = gearDocs
-                    generateGearById(gearDocs)
+                   
                 })
         })
     }
@@ -100,21 +102,21 @@ export class GgRequests {
                             </ion-card-header>
                             <ion-card-content>
                                 <ion-list>
-                                    <ion-item>{requests
+                                    {requests
                                         .requestedGear
                                         .map(gearid => <ion-item>
                                             <ion-icon
                                                 slot="start"
-                                                name={gear_by_id[gearid].type == "camera"
+                                                name={this.gearById[gearid].type == "camera"
                                                     ? "Videocam"
-                                                    : gear_by_id[gearid].type == 'lighting'
+                                                    : this.gearById[gearid].type == 'lighting'
                                                         ? "sunny"
                                                         : "logo-freebsd-devil"}></ion-icon>
 
-                                            <ion-label>{gear_by_id[gearid].name}</ion-label>
+                                            <ion-label>{this.gearById[gearid].name}</ion-label>
 
                                         </ion-item>)
-                                    }</ion-item>
+                                    }   
                                 </ion-list>
 
                                 <ion-button expand="block">Edit Request</ion-button>

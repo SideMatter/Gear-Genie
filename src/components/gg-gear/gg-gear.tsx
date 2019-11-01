@@ -63,7 +63,7 @@ export class GgGear {
                     </ion-card>
                     {this
                         .gear
-                        .map(gear => <ion-item>
+                        .map(gear => <ion-item >
                             <ion-icon
                                 slot="start"
                                 name={gear.type == "camera"

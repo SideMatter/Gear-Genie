@@ -1,0 +1,102 @@
+{
+  "_from": "@iotize/device-com-nfc.cordova",
+  "_id": "@iotize/device-com-nfc.cordova@1.0.0-alpha.12",
+  "_inBundle": false,
+  "_integrity": "sha512-B1TyNJ2zsAye4y23tWN4JsfXLgG3QL65fEB8qnrabur5UD0vF6xVfdxuDB+RHnPi/zx6QM80pFR+37OJMqi/iQ==",
+  "_location": "/@iotize/device-com-nfc.cordova",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@iotize/device-com-nfc.cordova",
+    "name": "@iotize/device-com-nfc.cordova",
+    "escapedName": "@iotize%2fdevice-com-nfc.cordova",
+    "scope": "@iotize",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@iotize/device-com-nfc.cordova/-/device-com-nfc.cordova-1.0.0-alpha.12.tgz",
+  "_shasum": "3481152c0bab06d81b47b02acce74cd96139009c",
+  "_spec": "@iotize/device-com-nfc.cordova",
+  "_where": "/Users/alexlyman/gear-genie-stencil",
+  "author": {
+    "name": "IoTize",
+    "email": "dev@iotize.com"
+  },
+  "bugs": {
+    "url": "https://github.com/iotize-sas/device-com-nfc.cordova/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "iotize-device-com-nfc",
+    "platforms": [
+      "android",
+      "wp8",
+      "windows",
+      "blackberry10",
+      "ios"
+    ]
+  },
+  "dependencies": {
+    "debug": "^4.1.1"
+  },
+  "deprecated": false,
+  "description": "Near Field Communication (NFC) Plugin. Read and write NDEF messages to NFC tags and share NDEF messages with peers.",
+  "devDependencies": {
+    "@iotize/device-client.js": "0.0.1-alpha.96",
+    "@types/chai": "^4.1.7",
+    "@types/debug": "^4.1.4",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.6.8",
+    "chai": "^4.2.0",
+    "compression-webpack-plugin": "^2.0.0",
+    "mocha": "^6.2.0",
+    "mochawesome": "^4.0.1",
+    "rxjs": "^6.3.3",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.2.2",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.29.6",
+    "webpack-bundle-analyzer": "^3.4.1",
+    "webpack-cli": "^3.3.0",
+    "webpack-rxjs-externals": "^2.0.0"
+  },
+  "homepage": "https://github.com/iotize-sas/device-com-nfc.cordova#readme",
+  "keywords": [
+    "nfc",
+    "ndef",
+    "ecosystem:cordova",
+    "cordova",
+    "cordova-android",
+    "cordova-wp8",
+    "cordova-windows",
+    "cordova-blackberry10",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "name": "@iotize/device-com-nfc.cordova",
+  "peerDependencies": {
+    "@iotize/device-client.js": "^0.0.1-alpha.96",
+    "rxjs": "^6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iotize-sas/device-com-nfc.cordova.git"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:ts && npm run build:webpack",
+    "build:ts": "tsc -p ./tsconfig.lib.json",
+    "build:webpack": "webpack --config webpack.config.js",
+    "clean": "rm -rf ./dist/*",
+    "prepare": "npm run build",
+    "test": "npm run test:unit",
+    "test:unit": "mocha --recursive src/www/**/*.spec.ts"
+  },
+  "version": "1.0.0-alpha.12"
+}

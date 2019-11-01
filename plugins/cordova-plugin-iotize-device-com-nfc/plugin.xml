@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-iotize-device-com-nfc" version="1.0.0-alpha.12">
+
+    <name>cordova-plugin-iotize-device-com-nfc</name>
+
+    <description>Near Field Communication (NFC) Plugin. Read and write NDEF messages to NFC tags and share NDEF messages with peers.</description>
+
+    <license>MIT</license>
+    <keywords>nfc, NFC, NDEF</keywords>
+    <repo>https://github.com/iotize-sas/device-com-nfc.cordova.git</repo>
+    <issue>https://github.com/iotize-sas/device-com-nfc.cordova/issues</issue>
+
+    <dependency id="cordova-plugin-add-swift-support"/>
+
+    <platform name="android">
+        <js-module src="www/phonegap-nfc.js" name="NFC">
+            <runs />
+        </js-module>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="NfcPlugin">
+                <param name="android-package" value="com.chariotsolutions.nfc.plugin.NfcPlugin"/>
+                <param name="onload" value="true" />
+            </feature>
+            <feature name="NFCCom">
+                <param name="android-package" value="com.iotize.android.communication.nfc.cordovaplugin.NFCCom"/>
+            </feature>
+        </config-file>
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+
+        <source-file src="src/android/src/com/chariotsolutions/nfc/plugin/NfcPlugin.java" target-dir="src/com/chariotsolutions/nfc/plugin"/>
+        <source-file src="src/android/src/com/chariotsolutions/nfc/plugin/Util.java" target-dir="src/com/chariotsolutions/nfc/plugin"/>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.NFC"/>
+            <uses-feature android:name="android.hardware.nfc" android:required="false"/>
+        </config-file>
+
+        <edit-config file="AndroidManifest.xml" target="/manifest/uses-sdk" mode="merge">
+            <uses-sdk android:minSdkVersion="19" />
+        </edit-config>
+
+    </platform>
+
+    <platform name="ios">
+        <js-module src="www/phonegap-nfc.js" name="NFC">
+            <runs />
+        </js-module>
+
+        <config-file parent="/*" target="config.xml">
+            <feature name="NfcPlugin">
+                <param name="ios-package" value="NfcPlugin" />
+            </feature>
+            <preference name="deployment-target" value="11" />
+            <preference name="SwiftVersion" value="4" />
+
+        </config-file>
+        <source-file src="src/ios/NFCTapPlugin.swift" />
+        <source-file src="src/ios/ISO15Reader.swift" />
+        <source-file src="src/ios/NFCNDEFDelegate.swift" />
+        <source-file src="src/ios/AppDelegate+NFC.swift" />
+        <source-file src="src/ios/NFCPlugin-Bridging-Header.h" />
+
+
+        <config-file platform="ios" target="*-Debug.plist" parent="com.apple.developer.nfc.readersession.formats">
+            <array>
+                <string>NDEF</string>
+                <string>TAG</string>
+            </array>
+        </config-file>
+
+        <config-file platform="ios" target="*-Release.plist" parent="com.apple.developer.nfc.readersession.formats">
+            <array>
+                <string>NDEF</string>
+                <string>TAG</string>
+            </array>
+        </config-file>
+
+        <!-- frameworks -->
+        <framework src="CoreNFC.framework" weak="true"/>
+
+        <config-file target="*-Info.plist" parent="NFCReaderUsageDescription">
+            <string>Communicate with IoTize NFC Tags</string>
+        </config-file>
+    </platform>
+
+
+</plugin>

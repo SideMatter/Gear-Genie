@@ -11,23 +11,34 @@ import {
 } from './interfaces';
 
 export namespace Components {
-  interface AppRoot {}
-  interface GgAddGearToRequest {}
+  interface AppRoot {
+    'gearById': any;
+    'gearid': string;
+  }
+  interface GgAddGearToRequest {
+    'gearid': string;
+  }
   interface GgAuth {}
   interface GgCheckinout {}
   interface GgDirectory {}
   interface GgGear {}
+  interface GgGearView {
+    'gearById': any;
+    'gearid': string;
+  }
   interface GgHome {}
   interface GgNewGear {
     'modalCtrl': HTMLIonModalControllerElement;
   }
   interface GgNewRequest {
     'addGear': (gear: Gear) => Promise<void>;
+    'gearById': any;
     'modalCtrl': HTMLIonModalControllerElement;
   }
   interface GgProfile {}
   interface GgRequests {
     'addGear': (gear: any) => Promise<void>;
+    'gearById': string;
   }
   interface GgTeacherView {}
 }
@@ -69,6 +80,12 @@ declare global {
   var HTMLGgGearElement: {
     prototype: HTMLGgGearElement;
     new (): HTMLGgGearElement;
+  };
+
+  interface HTMLGgGearViewElement extends Components.GgGearView, HTMLStencilElement {}
+  var HTMLGgGearViewElement: {
+    prototype: HTMLGgGearViewElement;
+    new (): HTMLGgGearViewElement;
   };
 
   interface HTMLGgHomeElement extends Components.GgHome, HTMLStencilElement {}
@@ -113,6 +130,7 @@ declare global {
     'gg-checkinout': HTMLGgCheckinoutElement;
     'gg-directory': HTMLGgDirectoryElement;
     'gg-gear': HTMLGgGearElement;
+    'gg-gear-view': HTMLGgGearViewElement;
     'gg-home': HTMLGgHomeElement;
     'gg-new-gear': HTMLGgNewGearElement;
     'gg-new-request': HTMLGgNewRequestElement;
@@ -123,21 +141,33 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface AppRoot {}
-  interface GgAddGearToRequest {}
+  interface AppRoot {
+    'gearById'?: any;
+    'gearid'?: string;
+  }
+  interface GgAddGearToRequest {
+    'gearid'?: string;
+  }
   interface GgAuth {}
   interface GgCheckinout {}
   interface GgDirectory {}
   interface GgGear {}
+  interface GgGearView {
+    'gearById'?: any;
+    'gearid'?: string;
+  }
   interface GgHome {}
   interface GgNewGear {
     'modalCtrl'?: HTMLIonModalControllerElement;
   }
   interface GgNewRequest {
+    'gearById'?: any;
     'modalCtrl'?: HTMLIonModalControllerElement;
   }
   interface GgProfile {}
-  interface GgRequests {}
+  interface GgRequests {
+    'gearById'?: string;
+  }
   interface GgTeacherView {}
 
   interface IntrinsicElements {
@@ -147,6 +177,7 @@ declare namespace LocalJSX {
     'gg-checkinout': GgCheckinout;
     'gg-directory': GgDirectory;
     'gg-gear': GgGear;
+    'gg-gear-view': GgGearView;
     'gg-home': GgHome;
     'gg-new-gear': GgNewGear;
     'gg-new-request': GgNewRequest;
@@ -168,6 +199,7 @@ declare module "@stencil/core" {
       'gg-checkinout': LocalJSX.GgCheckinout & JSXBase.HTMLAttributes<HTMLGgCheckinoutElement>;
       'gg-directory': LocalJSX.GgDirectory & JSXBase.HTMLAttributes<HTMLGgDirectoryElement>;
       'gg-gear': LocalJSX.GgGear & JSXBase.HTMLAttributes<HTMLGgGearElement>;
+      'gg-gear-view': LocalJSX.GgGearView & JSXBase.HTMLAttributes<HTMLGgGearViewElement>;
       'gg-home': LocalJSX.GgHome & JSXBase.HTMLAttributes<HTMLGgHomeElement>;
       'gg-new-gear': LocalJSX.GgNewGear & JSXBase.HTMLAttributes<HTMLGgNewGearElement>;
       'gg-new-request': LocalJSX.GgNewRequest & JSXBase.HTMLAttributes<HTMLGgNewRequestElement>;

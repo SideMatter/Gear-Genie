@@ -1,0 +1,7 @@
+{
+  "name": "Gear Genie",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "custom"
+}

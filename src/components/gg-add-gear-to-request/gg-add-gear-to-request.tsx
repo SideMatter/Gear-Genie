@@ -1,10 +1,10 @@
-import {Component, Host, h, State,} from '@stencil/core';
+import {Component, Host, h, State, Prop,} from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
 import {firestoreDB} from '../../global/firebase';
 import {Gear} from '../../interfaces';
 import {SelectChangeEventDetail} from '@ionic/core';
-import { school_id, generateGearById } from '../../global/constants';
+import { school_id, } from '../../global/constants';
 
 @Component({tag: 'gg-add-gear-to-request', styleUrl: 'gg-add-gear-to-request.css'})
 export class GgAddGearToRequest {
@@ -12,6 +12,7 @@ export class GgAddGearToRequest {
     gear : Gear[] = [];
     @State()
     filterType = 'camera'
+    @Prop() gearid: string; //comes from route url
    
     
 
@@ -28,7 +29,7 @@ export class GgAddGearToRequest {
                     });
                 console.log('gear', gearDocs);
                 this.gear = gearDocs
-                generateGearById(gearDocs)
+                
             })
     }
     segmentChanged(e : CustomEvent < SelectChangeEventDetail >) {

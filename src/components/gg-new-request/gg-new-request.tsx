@@ -9,7 +9,7 @@ import {
 import {InputChangeEventDetail, SelectChangeEventDetail, DatetimeChangeEventDetail} from '@ionic/core';
 import {firestoreDB} from '../../global/firebase';
 import {Requests, Gear} from '../../interfaces';
-import {school_id, gear_by_id} from '../../global/constants';
+import {school_id,} from '../../global/constants';
 
 @Component({tag: 'gg-new-request', styleUrl: 'gg-new-request.css'})
 export class GgNewRequest {
@@ -29,6 +29,8 @@ export class GgNewRequest {
     modalCtrl : HTMLIonModalControllerElement;
     @State()
     requestedGear : string[] = [];
+    @Prop() 
+    gearById
 
     @Method()
     async addGear(gear : Gear) {
@@ -153,12 +155,12 @@ export class GgNewRequest {
                             .map(gearid => <ion-item>
                                 <ion-icon
                                     slot="start"
-                                    name={gear_by_id[gearid].type == "camera"
+                                    name={this.gearById[gearid].type == "camera"
                                     ? "Videocam"
-                                    : gear_by_id[gearid].type == 'lighting'
+                                    : this.gearById[gearid].type == 'lighting'
                                         ? "sunny"
                                         : "logo-freebsd-devil"}></ion-icon>
-                                <ion-label>{gear_by_id[gearid].name}</ion-label>
+                                <ion-label>{this.gearById[gearid].name}</ion-label>
                             </ion-item>)
 }
                     </ion-list>

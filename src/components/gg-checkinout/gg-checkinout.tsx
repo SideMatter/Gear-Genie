@@ -1,5 +1,5 @@
 import { Component, Host, h, } from '@stencil/core';
-import { NFC, Ndef } from '@ionic-native/nfc/ngx';
+
 
 
 @Component({
@@ -8,22 +8,8 @@ import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 })
 
 export class GgCheckinout {
-  nfc: any;
-  ndef: any;
-
-  test(){
-    this.nfc.addNdefListener(() => {
-      console.log('successfully attached ndef listener');
-    }, (err) => {
-      console.log('error attaching ndef listener', err);
-    }).subscribe((event) => {
-      console.log('received ndef message. the tag contains: ', event.tag);
-      console.log('decoded tag id', this.nfc.bytesToHexString(event.tag.id));
-    
-      let message = this.ndef.textRecord('Hello world');
-      this.nfc.share([message]).then(onSuccess).catch(onError);
-    });
-  } 
+ 
+  
 
     render() {
         return (

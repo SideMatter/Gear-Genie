@@ -1,0 +1,18 @@
+{
+  "cordova-plugin-iotize-device-com-nfc": {
+    "source": {
+      "type": "registry",
+      "id": "@iotize/device-com-nfc.cordova@^1.0.0-alpha.12"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "phonegap-nfc": {
+    "source": {
+      "type": "registry",
+      "id": "phonegap-nfc@^1.0.4"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

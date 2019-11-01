@@ -1,8 +1,8 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
 import { firestoreDB } from '../../global/firebase';
-import { generateGearById, school_id } from '../../global/constants';
+import { school_id } from '../../global/constants';
 import { Gear } from '../../interfaces';
 
 @Component({
@@ -43,6 +43,16 @@ export class AppRoot {
     }
   ];
   gear: Gear[];
+  generateGearById(gear: Gear[]){
+    const gear_by_id  = {};
+    gear.forEach(gearitem => {
+        gear_by_id[gearitem.id] = gearitem;
+        console.log(gearitem, "here")
+    });
+    return gear_by_id;
+}
+@Prop() gearid: string; //comes from route url
+@Prop() gearById
 componentDidLoad() {
   firestoreDB
                 .collection(`/schools/${school_id}/gear`)
@@ -56,27 +66,63 @@ componentDidLoad() {
                         });
                     console.log('gear', gearDocs);
                     this.gear = gearDocs
-                    generateGearById(gearDocs)
+                    this.gearById = this.generateGearById(gearDocs)
+                    
                 })
+           
+                 
 }
+
   render() {
     return (
 
       <ion-app>
         <ion-router useHash={false}>
-          <ion-route url="/home" component="gg-home" />
-          <ion-route url="/gear" component="gg-gear" />
-          <ion-route url="/requests" component="gg-requests" />
-          <ion-route url="/directory" component="gg-directory" />
-          <ion-route url="/profile" component="gg-profile" />
-          <ion-route url="/checkinout" component="gg-checkinout" />
-          <ion-route url="/teacher" component="gg-teacher-view" />
-          <ion-route url="/new-gear" component="gg-new-gear" />
-          <ion-route url="/new-request" component="gg-new-request" />
-          <ion-route url="/profile" component="gg-profile" />
-          <ion-route url="/add-gear" component="gg-add-gear-to-request"/>
-          <ion-route url="/auth" component="gg-auth"/>
-          <ion-route url="/" component="gg-home" />
+          <ion-route url="/home" component="gg-home" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/gear" component="gg-gear" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/requests" component="gg-requests" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/directory" component="gg-directory" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/profile" component="gg-profile" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/checkinout" component="gg-checkinout" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/teacher" component="gg-teacher-view" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/new-gear" component="gg-new-gear" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/new-request" component="gg-new-request" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/profile" component="gg-profile" componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/add-gear" component="gg-add-gear-to-request"componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/auth" component="gg-auth"componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/gear-view" component="gg-gear-view"componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="gear/:gearid" component="gg-gear-view"componentProps={{
+              gearById: this.gearById
+            }}/>
+          <ion-route url="/" component="gg-home" componentProps={{
+              gearById: this.gearById
+            }}/>
         </ion-router>
         <ion-split-pane contentId="main">
           <ion-menu contentId="main" type="overlay">
