@@ -2,7 +2,7 @@ import { Component, Host, h, State, Method, Prop } from '@stencil/core';
 import { modalController, ModalOptions } from '@ionic/core';
 import { firestoreDB } from '../../global/firebase';
 import { Requests, Gear } from '../../interfaces';
-import { school_id,  } from '../../global/constants';
+import { school_id, } from '../../global/constants';
 
 
 @Component({
