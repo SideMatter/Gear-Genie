@@ -1,6 +1,7 @@
 import { Reference } from "@firebase/database";
 
 interface Gear {
+    multiple: any;
     name: string; //Name of the gear
     id: string; // the id of the gear
     approvalNeeded: boolean; // true/false

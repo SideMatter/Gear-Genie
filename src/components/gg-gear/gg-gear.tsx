@@ -1,4 +1,4 @@
-import { Component, Host, h, State } from '@stencil/core';
+import { Component, Host, h, State, Prop } from '@stencil/core';
 import { modalController, ModalOptions } from '@ionic/core';
 import '@firebase/auth';
 import '@firebase/database';
@@ -11,6 +11,9 @@ import { Gear } from '../../interfaces';
 export class GgGear {
     @State()
     gear: Gear[] = [];
+    @Prop() 
+    gearById: string; //comes from route url
+    
 
     componentDidLoad() {
         firestoreDB
@@ -72,6 +75,7 @@ export class GgGear {
                                         ? "sunny"
                                         : "logo-freebsd-devil"}></ion-icon>
                             <ion-label>{gear.name}</ion-label>
+                            <ion-badge slot="end">{gear.multiple}</ion-badge>
                             <ion-chip color="primary">
                                 <ion-icon name="checkmark-circle"></ion-icon>
                                 <ion-label>Status Coming #Soon</ion-label>

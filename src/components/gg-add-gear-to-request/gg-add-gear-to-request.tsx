@@ -86,6 +86,7 @@ export class GgAddGearToRequest {
                                         ? "sunny"
                                         : "logo-freebsd-devil"}></ion-icon>
                                 <ion-label>{gear.name}</ion-label>
+                                <ion-badge slot="end">{gear.multiple}</ion-badge>
                                 <ion-chip color="primary">
                                     <ion-icon name="checkmark-circle"></ion-icon>
                                     <ion-label>Available</ion-label>

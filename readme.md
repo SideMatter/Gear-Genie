@@ -7,11 +7,12 @@ The brainchild of Alex Lyman to simplify and expedite video production gear chec
  - Checking in and out Gear
  - Gear status view *Shows what gear is out and when*
  - Gear requests *Allows team to request gear and administrators to approve requests*
- - Badge management *Show badge, Verify Badge,*
+ - Badge management *Show badge, Verify Badge*
+ - Team directory *Shows all members in teams*
  
 # Planned Features
 
- - Team directory *Shows all members in teams*
+ 
  - Add team members to requests
  - NFC and QR code check in and out Tap your phone to tags physically on gear or scan QR code's 
 to check in and out. This feature may or may not happen
@@ -20,7 +21,7 @@ Please let me know if there are bugs. This is my first time developing a app and
 
 # **LINK**
 
-[Gear Genie v2](Gear-genie.firebaseapp.com)
+[Gear Genie v2](geargenie.app)
 
 # Trello board
 

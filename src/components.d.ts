@@ -21,7 +21,9 @@ export namespace Components {
   interface GgAuth {}
   interface GgCheckinout {}
   interface GgDirectory {}
-  interface GgGear {}
+  interface GgGear {
+    'gearById': string;
+  }
   interface GgGearView {
     'gearById': any;
     'gearid': string;
@@ -153,7 +155,9 @@ declare namespace LocalJSX {
   interface GgAuth {}
   interface GgCheckinout {}
   interface GgDirectory {}
-  interface GgGear {}
+  interface GgGear {
+    'gearById'?: string;
+  }
   interface GgGearView {
     'gearById'?: any;
     'gearid'?: string;

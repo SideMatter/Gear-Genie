@@ -126,7 +126,7 @@ export class GgTeacherview {
                                                         : "logo-freebsd-devil"}></ion-icon>
 
                                             <ion-label>{this.gearById[gearid].name}</ion-label>
-
+                                            <ion-badge slot="end">{this.gearById[gearid].multiple}</ion-badge>
                                         </ion-item>)
 }</ion-list>
                                 <ion-button

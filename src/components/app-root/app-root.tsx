@@ -111,18 +111,14 @@ componentDidLoad() {
           <ion-route url="/add-gear" component="gg-add-gear-to-request"componentProps={{
               gearById: this.gearById
             }}/>
-          <ion-route url="/auth" component="gg-auth"componentProps={{
-              gearById: this.gearById
-            }}/>
+          <ion-route url="/auth" component="gg-auth"/>
           <ion-route url="/gear-view" component="gg-gear-view"componentProps={{
               gearById: this.gearById
             }}/>
           <ion-route url="gear/:gearid" component="gg-gear-view"componentProps={{
               gearById: this.gearById
             }}/>
-          <ion-route url="/" component="gg-home" componentProps={{
-              gearById: this.gearById
-            }}/>
+          <ion-route url="/" component="gg-auth"/>
         </ion-router>
         <ion-split-pane contentId="main">
           <ion-menu contentId="main" type="overlay">
