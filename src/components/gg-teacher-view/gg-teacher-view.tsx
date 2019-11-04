@@ -1,14 +1,32 @@
-import {Component, Host, h, State} from '@stencil/core';
+import {Component, Host, h, State, Prop} from '@stencil/core';
 import {modalController, ModalOptions} from '@ionic/core';
 import {firestoreDB} from '../../global/firebase';
-import {Requests} from '../../interfaces';
-import { school_id } from '../../global/constants';
+import {Requests, Gear} from '../../interfaces';
+import {school_id} from '../../global/constants';
 
 @Component({tag: 'gg-teacher-view', styleUrl: 'gg-teacher-view.css'})
 export class GgTeacherview {
     // this is where varibles and controllers and funtions go
+    Requests : Requests = {
+        requestname: null,
+        requestedGear: [],
+        username: null,
+        datefilming: null,
+        periodfilming: null,
+        trellocardlink: null,
+        approval: null,
+        id: null,
+        status: "needs-approval",
+        type: null
+    }
     @State()
     requests : Requests[] = [];
+    @State()
+    requestedGear : string[] = [];
+    @State()
+    gear : Gear[] = [];
+    @Prop()
+    gearById : string; //comes from route url
 
     componentDidLoad() {
         firestoreDB
@@ -21,19 +39,33 @@ export class GgTeacherview {
                         Request.id = doc.id;
                         return Request;
                     });
+
                 console.log('Requests', RequestDocs);
                 this.requests = RequestDocs
             })
+
     }
     approveRequest(request : Requests) {
         firestoreDB
             .doc(`/schools/${school_id}/requests/${request.id}`)
             .update({status: 'approved'});
+            const toast = document.createElement('ion-toast');
+        toast.message = 'This request has been approved';
+        toast.duration = 2000;
+      
+        document.body.appendChild(toast);
+        return toast.present();
     }
     declineRequest(request : Requests) {
         firestoreDB
             .doc(`/schools/${school_id}/requests/${request.id}`)
-            .update({status: 'declined'});
+            .update({status: 'denied'});
+            const toast = document.createElement('ion-toast');
+        toast.message = 'This request has been declined';
+        toast.duration = 2000;
+      
+        document.body.appendChild(toast);
+        return toast.present();
     }
     async openModal() {
         const modalCtrl = modalController;
@@ -46,7 +78,9 @@ export class GgTeacherview {
         const modal = await modalCtrl.create(options);
         modal.present()
     }
-
+   
+      
+      
     render() {
         return (
             <Host>
@@ -65,9 +99,9 @@ export class GgTeacherview {
                             </ion-card-title>
                         </ion-card-header>
                         <ion-card-content>
-                        <ion-card-body>
-                            This view will show all requests
-                        </ion-card-body>
+                            <ion-card-body>
+                                This view will show all requests, so you may approve or decline them. just click the buttons to do so.
+                            </ion-card-body>
                         </ion-card-content>
                     </ion-card>
                     {this
@@ -77,7 +111,24 @@ export class GgTeacherview {
                                 <ion-card-title>{requests.requestname}</ion-card-title>
                             </ion-card-header>
                             <ion-card-content>
-                                <ion-list></ion-list>
+                                <ion-list>
+                                    {requests
+                                        .requestedGear
+                                        .map(gearid => <ion-item>
+                                            <ion-icon
+                                                slot="start"
+                                                name={this.gearById[gearid].type == "camera"
+                                                ? "Videocam"
+                                                : this.gearById[gearid].type == 'lighting'
+                                                    ? "sunny"
+                                                    : this.gearById[gearid].type == 'microphone'
+                                                        ? "microphone"
+                                                        : "logo-freebsd-devil"}></ion-icon>
+
+                                            <ion-label>{this.gearById[gearid].name}</ion-label>
+
+                                        </ion-item>)
+}</ion-list>
                                 <ion-button
                                     onClick={() => this.approveRequest(requests)}
                                     expand="block"
@@ -112,6 +163,7 @@ export class GgTeacherview {
                                     <ion-icon name="contact"></ion-icon>
                                     <ion-label>{requests.username}</ion-label>
                                 </ion-chip>
+
                             </ion-card-content>
                         </ion-card>)
 }

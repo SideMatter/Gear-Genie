@@ -13,5 +13,5 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
+window['firebase'] = firebase;
 export const firestoreDB = firebase.firestore();

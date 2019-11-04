@@ -48,6 +48,7 @@ export class GgNewRequest {
             .modalCtrl
             .dismiss();
     }
+
     requestName(e : CustomEvent < InputChangeEventDetail >) {
         const value = e.detail.value;
         console.log('value', value);

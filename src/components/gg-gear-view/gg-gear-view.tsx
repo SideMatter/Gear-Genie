@@ -34,7 +34,7 @@ export class GgGearView {
   <ion-label>
     Current Status
   </ion-label>
-  <ion-chip>status coming soon</ion-chip>
+  <ion-chip color="primary">Status coming #soon</ion-chip>
 </ion-item>
                            </ion-list>
                        </ion-card-body>

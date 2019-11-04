@@ -40,7 +40,9 @@ export namespace Components {
     'addGear': (gear: any) => Promise<void>;
     'gearById': string;
   }
-  interface GgTeacherView {}
+  interface GgTeacherView {
+    'gearById': string;
+  }
 }
 
 declare global {
@@ -168,7 +170,9 @@ declare namespace LocalJSX {
   interface GgRequests {
     'gearById'?: string;
   }
-  interface GgTeacherView {}
+  interface GgTeacherView {
+    'gearById'?: string;
+  }
 
   interface IntrinsicElements {
     'app-root': AppRoot;
