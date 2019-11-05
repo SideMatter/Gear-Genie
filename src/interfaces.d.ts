@@ -7,6 +7,7 @@ interface Gear {
     id: string; // the id of the gear
     approvalNeeded: boolean; // true/false
     type: "camera" | "microphone" | "lighting" | "other"
+    
 }
 interface Requests {
     id: string; //The id of the request

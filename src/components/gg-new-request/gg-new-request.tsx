@@ -151,7 +151,7 @@ export class GgNewRequest {
                     <ion-button expand="block" onClick={() => this.navigateToGear()}>Add Gear</ion-button>
                     <ion-list>
                         {this
-                            .requestedGear
+                            .gearById
                             .map(gearid => <ion-item>
                                 <ion-icon
                                     slot="start"

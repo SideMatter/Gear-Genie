@@ -42,6 +42,9 @@ export namespace Components {
     'addGear': (gear: any) => Promise<void>;
     'gearById': string;
   }
+  interface GgStatusPopup {
+    'gearById': string;
+  }
   interface GgTeacherView {
     'gearById': string;
   }
@@ -122,6 +125,12 @@ declare global {
     new (): HTMLGgRequestsElement;
   };
 
+  interface HTMLGgStatusPopupElement extends Components.GgStatusPopup, HTMLStencilElement {}
+  var HTMLGgStatusPopupElement: {
+    prototype: HTMLGgStatusPopupElement;
+    new (): HTMLGgStatusPopupElement;
+  };
+
   interface HTMLGgTeacherViewElement extends Components.GgTeacherView, HTMLStencilElement {}
   var HTMLGgTeacherViewElement: {
     prototype: HTMLGgTeacherViewElement;
@@ -140,6 +149,7 @@ declare global {
     'gg-new-request': HTMLGgNewRequestElement;
     'gg-profile': HTMLGgProfileElement;
     'gg-requests': HTMLGgRequestsElement;
+    'gg-status-popup': HTMLGgStatusPopupElement;
     'gg-teacher-view': HTMLGgTeacherViewElement;
   }
 }
@@ -174,6 +184,9 @@ declare namespace LocalJSX {
   interface GgRequests {
     'gearById'?: string;
   }
+  interface GgStatusPopup {
+    'gearById'?: string;
+  }
   interface GgTeacherView {
     'gearById'?: string;
   }
@@ -191,6 +204,7 @@ declare namespace LocalJSX {
     'gg-new-request': GgNewRequest;
     'gg-profile': GgProfile;
     'gg-requests': GgRequests;
+    'gg-status-popup': GgStatusPopup;
     'gg-teacher-view': GgTeacherView;
   }
 }
@@ -213,6 +227,7 @@ declare module "@stencil/core" {
       'gg-new-request': LocalJSX.GgNewRequest & JSXBase.HTMLAttributes<HTMLGgNewRequestElement>;
       'gg-profile': LocalJSX.GgProfile & JSXBase.HTMLAttributes<HTMLGgProfileElement>;
       'gg-requests': LocalJSX.GgRequests & JSXBase.HTMLAttributes<HTMLGgRequestsElement>;
+      'gg-status-popup': LocalJSX.GgStatusPopup & JSXBase.HTMLAttributes<HTMLGgStatusPopupElement>;
       'gg-teacher-view': LocalJSX.GgTeacherView & JSXBase.HTMLAttributes<HTMLGgTeacherViewElement>;
     }
   }

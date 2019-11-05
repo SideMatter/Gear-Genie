@@ -1,4 +1,5 @@
 import {Component, Host, h} from '@stencil/core';
+import { gearStatusController } from '../../helpers/utils';
 
 @Component({tag: 'gg-home', styleUrl: 'gg-home.css'})
 export class GgHome {
@@ -36,6 +37,7 @@ export class GgHome {
                             <ion-button href="/gear" expand="block">
                                 View Gear
                             </ion-button>
+                            <ion-button onClick={() => gearStatusController()}>TEST BUTTON</ion-button>
                         </ion-card-content>
                     </ion-card>
                 </ion-content>

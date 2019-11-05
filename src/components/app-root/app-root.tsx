@@ -115,6 +115,9 @@ componentDidLoad() {
           <ion-route url="/gear-view" component="gg-gear-view"componentProps={{
               gearById: this.gearById
             }}/>
+            <ion-route url="/status-popup" component="gg-status-popup"componentProps={{
+              gearById: this.gearById
+            }}/>
           <ion-route url="gear/:gearid" component="gg-gear-view"componentProps={{
               gearById: this.gearById
             }}/>

@@ -1,34 +1,45 @@
 import { Component, Host, h, State, Prop } from '@stencil/core';
-import { modalController, ModalOptions } from '@ionic/core';
+import { modalController, ModalOptions, } from '@ionic/core';
 import '@firebase/auth';
 import '@firebase/database';
 import { firestoreDB } from '../../global/firebase';
 import { school_id } from '../../global/constants';
-import { Gear } from '../../interfaces';
+import { Gear, Requests } from '../../interfaces';
 
 @Component({ tag: 'gg-gear', styleUrl: 'gg-gear.css' })
 
 export class GgGear {
     @State()
     gear: Gear[] = [];
-    @Prop() 
+    @Prop()
     gearById: string; //comes from route url
-    
+    requests: Requests[];
 
     componentDidLoad() {
         firestoreDB
-            .collection(`/schools/${school_id}/gear`)
+            .collection(`/schools/${school_id}/requests`)
             .onSnapshot(snap => {
-                const gearDocs = snap
+                const requestDocs = snap
                     .docs
-                    .map(doc => doc.data() as Gear);
-                console.log('gear', gearDocs);
-                this.gear = gearDocs
+                    .map(doc => doc.data() as Requests);
+                console.log('Requests', requestDocs);
+                this.requests = requestDocs
+                firestoreDB
+                    .collection(`/schools/${school_id}/gear`)
+                    .onSnapshot(snap => {
+                        const gearDocs = snap
+                            .docs
+                            .map(doc => {
+                                const gear = doc.data() as Gear;
+                                gear.id = doc.id;
+                                return gear
+                            });
+                        console.log('gear', gearDocs);
+                        this.gear = gearDocs
 
-
+                    })
             })
-        }
-
+    }
     async openModal() {
         const modalCtrl = modalController;
         const options: ModalOptions = {
@@ -40,7 +51,19 @@ export class GgGear {
         const modal = await modalCtrl.create(options);
         modal.present()
     }
-
+    gearStatusController(){
+        
+           
+    }
+     presentPopover(ev) {
+        const popover = Object.assign(document.createElement('ion-popover'), {
+          component: 'gg-status-popup',
+          event: ev,
+          translucent: true
+        });
+        document.body.appendChild(popover);
+        return popover.present();
+      }
     render() {
         return (
             <Host>
@@ -64,9 +87,7 @@ export class GgGear {
                             <ion-datetime placeholder="Select Date"></ion-datetime>
                         </ion-card-content>
                     </ion-card>
-                    {this
-                        .gear
-                        .map(gear => <ion-item >
+                    {this.gear.map(gear => <ion-item>
                             <ion-icon
                                 slot="start"
                                 name={gear.type == "camera"
@@ -76,13 +97,13 @@ export class GgGear {
                                         : "logo-freebsd-devil"}></ion-icon>
                             <ion-label>{gear.name}</ion-label>
                             <ion-badge slot="end">{gear.multiple}</ion-badge>
-                            <ion-chip color="primary">
+                            <ion-chip color="primary" onClick={() => this.presentPopover(this.gearById)}>
                                 <ion-icon name="checkmark-circle"></ion-icon>
                                 <ion-label>Status Coming #Soon</ion-label>
                             </ion-chip>
                         </ion-item>)
                     }
-                    
+
                     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                         <ion-fab-button onClick={() => this.openModal()}>
                             <ion-icon name="create"></ion-icon>
