@@ -30,17 +30,17 @@ export class GgNewRequest {
     @State()
     requestedGear : string[] = [];
     @Prop() 
-    gearById
+    gearById : string[] = [];
 
     @Method()
     async addGear(gear : Gear) {
         console.log('gear from other page', gear);
         this.requestedGear = [
             ...this.requestedGear,
-            gear.id
+            gear.id 
         ];
         this.Requests.requestedGear = this.requestedGear
-
+        
     }
 
     closeModal() {
@@ -48,7 +48,6 @@ export class GgNewRequest {
             .modalCtrl
             .dismiss();
     }
-
     requestName(e : CustomEvent < InputChangeEventDetail >) {
         const value = e.detail.value;
         console.log('value', value);
@@ -156,7 +155,7 @@ export class GgNewRequest {
                             .map(gearid => <ion-item>
                                 <ion-icon
                                     slot="start"
-                                    name={this.gearById[gearid].type == "camera"
+                                    name={this.requestedGear[gearid].type == "camera"
                                     ? "Videocam"
                                     : this.gearById[gearid].type == 'lighting'
                                         ? "sunny"

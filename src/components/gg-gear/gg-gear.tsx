@@ -82,6 +82,7 @@ export class GgGear {
                             </ion-chip>
                         </ion-item>)
                     }
+                    
                     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                         <ion-fab-button onClick={() => this.openModal()}>
                             <ion-icon name="create"></ion-icon>

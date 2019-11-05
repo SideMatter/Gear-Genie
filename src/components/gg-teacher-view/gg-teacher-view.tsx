@@ -167,11 +167,6 @@ export class GgTeacherview {
                             </ion-card-content>
                         </ion-card>)
 }
-                    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                        <ion-fab-button onClick={() => this.openModal()}>
-                            <ion-icon name="create"></ion-icon>
-                        </ion-fab-button>
-                    </ion-fab>
                 </ion-content>
                 <ion-footer>
                     <ion-button expand="block">Return Gear</ion-button>

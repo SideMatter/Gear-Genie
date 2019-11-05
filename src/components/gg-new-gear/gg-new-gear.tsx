@@ -13,6 +13,9 @@ export class GgNewGear {
         type: null,
         approvalNeeded: false,
         id: null,
+        multiple: null,
+        details: null,
+
     }
     @Prop()
     modalCtrl : HTMLIonModalControllerElement;
@@ -26,6 +29,16 @@ export class GgNewGear {
         const value = e.detail.value;
         console.log('value', value);
         this.gear.name = value
+    }
+    gearDetailChange(e : CustomEvent < InputChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('value', value);
+        this.gear.details = value
+    }
+    gearMultipleChange(e : CustomEvent < InputChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('value', value);
+        this.gear.multiple = value
     }
 
     gearTypeChange(e : CustomEvent < SelectChangeEventDetail >) {
@@ -65,6 +78,16 @@ export class GgNewGear {
                             <ion-label position="floating">Gear Name</ion-label>
                             <ion-input onIonChange={(e) => this.gearNameChange(e)} value={this.gear.name}></ion-input>
                         </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Gear Details</ion-label>
+                            <ion-input onIonChange={(e) => this.gearDetailChange(e)} value={this.gear.details}></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Gear ID Number</ion-label>
+                            <ion-input onIonChange={(e) => this.gearMultipleChange(e)} value={this.gear.multiple}></ion-input>
+                        </ion-item>
+                      
+                      
                         <ion-item>
                             <ion-label>Gear Type</ion-label>
                             <ion-select

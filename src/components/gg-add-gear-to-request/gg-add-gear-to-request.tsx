@@ -12,7 +12,8 @@ export class GgAddGearToRequest {
     gear : Gear[] = [];
     @State()
     filterType = 'camera'
-    @Prop() gearid: string; //comes from route url
+    @Prop()
+     gearid: string; //comes from route url
    
     
 

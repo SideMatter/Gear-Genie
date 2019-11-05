@@ -75,7 +75,8 @@ export class GgRequests {
             componentProps: {
                 root: "gg-new-request",
                 rootParams: {
-                    modalCtrl: modalCtrl
+                    modalCtrl: modalCtrl,
+                    gearById : this.gearById
                 }
             }
         };
