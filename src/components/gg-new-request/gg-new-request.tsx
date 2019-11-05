@@ -155,7 +155,7 @@ export class GgNewRequest {
                             .map(gearid => <ion-item>
                                 <ion-icon
                                     slot="start"
-                                    name={this.requestedGear[gearid].type == "camera"
+                                    name={this.gearById[gearid].type == "camera"
                                     ? "Videocam"
                                     : this.gearById[gearid].type == 'lighting'
                                         ? "sunny"
