@@ -9,22 +9,21 @@ import { school_id } from '../../global/constants';
 })
 
 export class GgStatusPopup {
-    @Prop()
-gearById: string;
-
+  @Prop() gearid: string
+  @Prop() gearById: string
     statusAvailable(){
         firestoreDB
-        .doc(`/schools/${school_id}/gear/${this.gearById}`)
+        .doc(`/schools/${school_id}/gear/${this.gearById[this.gearid]}`)
         .update({status: 'Available'});
     }
     statusApproval(){
         firestoreDB
-        .doc(`/schools/${school_id}/gear/${this.gearById}`)
+        .doc(`/schools/${school_id}/gear/${this.gearById[this.gearid]}`)
         .update({status: 'Needs Approval'});
     }
     statusUnavailable(){
         firestoreDB
-        .doc(`/schools/${school_id}/gear/${this.gearById}`)
+        .doc(`/schools/${school_id}/gear/${this.gearById[this.gearid]}`)
         .update({status: 'Unavailable'});
     }
    
@@ -35,19 +34,19 @@ gearById: string;
             <Host>
                 <ion-content>
                     <ion-list>
-                    <ion-item color="primary" onClick={() => this.statusAvailable()}>
+                    <ion-button color="primary" expand="block" onClick={() => this.statusAvailable()}>
   <ion-label>
     Available
   </ion-label>
-</ion-item> <ion-item color="warning">
+</ion-button> <ion-button color="warning"  expand="block">
   <ion-label>
     Require Permission
   </ion-label>
-</ion-item> <ion-item color="danger">
+</ion-button> <ion-button color="danger"  expand="block">
   <ion-label>
   Unavailable
   </ion-label>
-</ion-item>
+</ion-button>
                     </ion-list>
                 </ion-content>
                 </Host>

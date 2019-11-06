@@ -1,5 +1,5 @@
 import {Component, Host, h} from '@stencil/core';
-import { gearStatusController } from '../../helpers/utils';
+import { statusController } from '../../helpers/utils';
 
 @Component({tag: 'gg-home', styleUrl: 'gg-home.css'})
 export class GgHome {
@@ -37,7 +37,16 @@ export class GgHome {
                             <ion-button href="/gear" expand="block">
                                 View Gear
                             </ion-button>
-                            <ion-button onClick={() => gearStatusController()}>TEST BUTTON</ion-button>
+                            <ion-button color="secondary" href="https://github.com/SideMatter/gear-genie-stencil" expand="block">
+                                View Github
+                            </ion-button>
+                            <ion-button color="secondary" href="https://trello.com/b/mAs82Vmo/gear-genie-roadmap" expand="block">
+                                View Trello Board
+                            </ion-button>
+                            <ion-button onClick={() => statusController()} color="tertiary" expand="block">Pointless Button</ion-button>
+                            <ion-card-text>
+                                Trust In Dustin -DTOP
+                            </ion-card-text>
                         </ion-card-content>
                     </ion-card>
                 </ion-content>

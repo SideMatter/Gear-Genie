@@ -44,6 +44,7 @@ export namespace Components {
   }
   interface GgStatusPopup {
     'gearById': string;
+    'gearid': string;
   }
   interface GgTeacherView {
     'gearById': string;
@@ -186,6 +187,7 @@ declare namespace LocalJSX {
   }
   interface GgStatusPopup {
     'gearById'?: string;
+    'gearid'?: string;
   }
   interface GgTeacherView {
     'gearById'?: string;

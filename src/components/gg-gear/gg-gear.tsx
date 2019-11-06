@@ -51,10 +51,6 @@ export class GgGear {
         const modal = await modalCtrl.create(options);
         modal.present()
     }
-    gearStatusController(){
-        
-           
-    }
      presentPopover(ev) {
         const popover = Object.assign(document.createElement('ion-popover'), {
           component: 'gg-status-popup',
