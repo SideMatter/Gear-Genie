@@ -45,7 +45,7 @@ export class GgProfile {
           </ion-card>
           <div><ion-button>Add Badge Using NFC</ion-button>
             <ion-button color="secondary">Add Badge Using Code</ion-button></div>
-          <ion-card color="dark">
+          <ion-card>
             <ion-card-content>
               <ion-card-subtitle>
                 UKNIGHTED A-Day 2020

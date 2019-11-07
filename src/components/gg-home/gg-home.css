@@ -1,3 +1,9 @@
 gg-home {
     /* Component styles go here */
+    @media (prefers-color-scheme: dark) {
+        :root {
+          /* dark mode variables go here */
+        }
+      }
+      
 }

@@ -126,7 +126,16 @@ export class GgTeacherview {
                                                         : "logo-freebsd-devil"}></ion-icon>
 
                                             <ion-label>{this.gearById[gearid].name}</ion-label>
-                                            <ion-badge slot="end">{this.gearById[gearid].multiple}</ion-badge>
+                                            <ion-badge slot="end"
+                                            color={this.gearById[gearid].multiple == "1"
+                                                ? "primary"
+                                                : this.gearById[gearid].multiple == '2'
+                                                    ? "warning"
+                                                    : this.gearById[gearid].multiple == '3'
+                                                        ? "tertiary"
+                                                         : this.gearById[gearid].multiple == '4'
+                                                        ? "success"
+                                                        : "dark"}>{this.gearById[gearid].multiple}</ion-badge>
                                         </ion-item>)
 }</ion-list>
                                 <ion-button

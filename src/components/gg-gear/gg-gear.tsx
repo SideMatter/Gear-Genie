@@ -5,15 +5,20 @@ import '@firebase/database';
 import { firestoreDB } from '../../global/firebase';
 import { school_id } from '../../global/constants';
 import { Gear, Requests } from '../../interfaces';
+import { statusController } from '../../helpers/utils';
 
 @Component({ tag: 'gg-gear', styleUrl: 'gg-gear.css' })
 
 export class GgGear {
     @State()
     gear: Gear[] = [];
+    @State() reservedGearById= {
+        };
     @Prop()
     gearById: string; //comes from route url
     requests: Requests[];
+    
+  
 
     componentDidLoad() {
         firestoreDB
@@ -60,6 +65,12 @@ export class GgGear {
         document.body.appendChild(popover);
         return popover.present();
       }
+      async calendarChanged(e) {
+        console.log("it worked yay", e)
+const response = await statusController();
+this.reservedGearById = Response
+console.log('cory is the best person person ever', response)
+    }
     render() {
         return (
             <Host>
@@ -80,7 +91,7 @@ export class GgGear {
                         <ion-card-content>
                             <ion-text>This page is still in pre-alpha, meaning that it may not work or may
                                 break other things, Using this page you do so at your own risk of loss</ion-text>
-                            <ion-datetime placeholder="Select Date"></ion-datetime>
+                            <ion-datetime placeholder="Select Date" onIonChange={e => this.calendarChanged(e)}></ion-datetime>
                         </ion-card-content>
                     </ion-card>
                     {this.gear.map(gear => <ion-item>
@@ -92,12 +103,22 @@ export class GgGear {
                                         ? "sunny"
                                         : "logo-freebsd-devil"}></ion-icon>
                             <ion-label>{gear.name}</ion-label>
-                            <ion-badge slot="end">{gear.multiple}</ion-badge>
-                            <ion-chip color="primary" onClick={() => this.presentPopover(this.gearById)}>
+                            <ion-badge slot="end"
+                                            color={gear.multiple == "1"
+                                                ? "primary"
+                                                : gear.multiple == '2'
+                                                    ? "warning"
+                                                    : gear.multiple == '3'
+                                                        ? "tertiary"
+                                                         : gear.multiple == '4'
+                                                        ? "success"
+                                                        : "dark"}>{gear.multiple}</ion-badge>
+                            <ion-chip onClick={() => this.presentPopover(this.gearById)} color={this.reservedGearById[gear.id]? 'danger': 'primary'}>
                                 <ion-icon name="checkmark-circle"></ion-icon>
-                                <ion-label>Status Coming #Soon</ion-label>
+                                <ion-label>{this.reservedGearById[gear.id]? 'Unavailable': 'Available'}</ion-label>
                             </ion-chip>
-                        </ion-item>)
+                        </ion-item>
+                        )
                     }
 
                     <ion-fab vertical="bottom" horizontal="end" slot="fixed">

@@ -18,6 +18,14 @@ export class GgDirectory {
         this.Badges = badgesDocs
     })
   }
+   presentToast() {
+    const toast = document.createElement('ion-toast');
+    toast.message = 'Dustin Dean Topham is a benevolent dictator. He provides support and gear to all UKNIGHTED kind. He is the one we place our trust in. He resides in room 808 waiting for good videos.';
+    toast.duration = 6000;
+  
+    document.body.appendChild(toast);
+    return toast.present();
+  }
 @State()
 Badges: Badges[];
     
@@ -33,7 +41,7 @@ Badges: Badges[];
           
           <ion-content>
             <ion-list>
-              <ion-item color="warning"> 
+              <ion-item color="warning" onClick={() => this.presentToast()}> 
                 <ion-label>
                   DTOP 👑
                 </ion-label>
