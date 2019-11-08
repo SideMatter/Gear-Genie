@@ -16,6 +16,7 @@ export class GgGear {
     @Prop()
     gearById: string; //comes from route url
     requests: Requests[];
+    
 
     componentDidLoad() {
         firestoreDB
@@ -64,18 +65,26 @@ export class GgGear {
             .appendChild(popover);
         return popover.present();
     }
-    async calendarChanged(e) {
+    periodFilming;
+date;
+async calendarChanged(e) {
 
-        var betterstring = e
+        this.date = e
             .detail
             .value
             .substr(0, 10)
-        const response = await statusController(betterstring);
+    
+        const response = await statusController(this.date, this.periodFilming);
 
         this.reservedGearById = response
         console.log('cory is the best person person ever', response)
-        console.log('betterstring', betterstring)
+        console.log('betterstring', this.date)
     }
+    async periodChanged(e){
+        this.periodFilming = e.detail.value;
+
+    }
+    
     render() {
         return (
             <Host>
@@ -90,19 +99,18 @@ export class GgGear {
                     <ion-card>
                         <ion-card-header>
 
-                            <ion-card-title>WARNING!</ion-card-title>
+                            <ion-card-title>Gear</ion-card-title>
                         </ion-card-header>
 
                         <ion-card-content>
-                            <ion-text>This page is still in pre-alpha, meaning that it may not work or may
-                                break other things, Using this page you do so at your own risk of loss</ion-text>
+                            <ion-text>This page shows all gear and the status of it. Status is based on period and date. Make sure to set the period before you set the date, otherwise it won't work.</ion-text>
                            
                                         <ion-datetime
                                             pickerFormat="YYYY-MM-DD"
-                                            placeholder="Tap Here To Select Gear"
+                                            placeholder="Tap Here To Select Date"
                                             onIonChange={e => this.calendarChanged(e)}></ion-datetime>
                                     
-                                        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Select Period Coming Soon">
+                                        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Select Period Coming Soon" onIonChange={e => this.periodChanged(e)}>
                                             <ion-select-option value="A1">A1</ion-select-option>
                                             <ion-select-option value="A2">A2</ion-select-option>
                                             <ion-select-option value="A3">A3</ion-select-option>

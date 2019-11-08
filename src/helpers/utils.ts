@@ -8,13 +8,14 @@ export function sayHello() {
     : 'Hola';
 }
 
-export function statusController(gearDate) {
+export function statusController(gearDate, periodFilming) {
   const requestedGearById = {}
 
   return firestoreDB
 
     .collection(`/schools/${school_id}/requests`)
     .where("datefilming", "==", gearDate)
+    .where("periodfilming", "==", periodFilming)
     .get()
     .then(function (querySnapshot) {
 
