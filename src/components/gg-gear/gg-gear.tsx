@@ -82,7 +82,8 @@ async calendarChanged(e) {
     }
     async periodChanged(e){
         this.periodFilming = e.detail.value;
-
+        const response = await statusController(this.date, this.periodFilming);
+        this.reservedGearById = response
     }
     
     render() {
