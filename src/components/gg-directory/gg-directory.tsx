@@ -51,9 +51,6 @@ Badges: Badges[];
               </ion-item>
               {this.Badges.map(Badges =><ion-item>
                 <ion-label>{Badges.name}</ion-label>
-                <ion-chip>
-                    <ion-label>Badge ID:{Badges.NFCbadgeid}</ion-label>
-                  </ion-chip>
                   <ion-chip>
                     <ion-label>{Badges.day}</ion-label>
                   </ion-chip>

@@ -32,6 +32,7 @@ export namespace Components {
     'gearid': string;
   }
   interface GgHome {}
+  interface GgNewBadge {}
   interface GgNewGear {
     'modalCtrl': HTMLIonModalControllerElement;
   }
@@ -105,6 +106,12 @@ declare global {
     new (): HTMLGgHomeElement;
   };
 
+  interface HTMLGgNewBadgeElement extends Components.GgNewBadge, HTMLStencilElement {}
+  var HTMLGgNewBadgeElement: {
+    prototype: HTMLGgNewBadgeElement;
+    new (): HTMLGgNewBadgeElement;
+  };
+
   interface HTMLGgNewGearElement extends Components.GgNewGear, HTMLStencilElement {}
   var HTMLGgNewGearElement: {
     prototype: HTMLGgNewGearElement;
@@ -149,6 +156,7 @@ declare global {
     'gg-gear': HTMLGgGearElement;
     'gg-gear-view': HTMLGgGearViewElement;
     'gg-home': HTMLGgHomeElement;
+    'gg-new-badge': HTMLGgNewBadgeElement;
     'gg-new-gear': HTMLGgNewGearElement;
     'gg-new-request': HTMLGgNewRequestElement;
     'gg-profile': HTMLGgProfileElement;
@@ -180,6 +188,7 @@ declare namespace LocalJSX {
     'gearid'?: string;
   }
   interface GgHome {}
+  interface GgNewBadge {}
   interface GgNewGear {
     'modalCtrl'?: HTMLIonModalControllerElement;
   }
@@ -208,6 +217,7 @@ declare namespace LocalJSX {
     'gg-gear': GgGear;
     'gg-gear-view': GgGearView;
     'gg-home': GgHome;
+    'gg-new-badge': GgNewBadge;
     'gg-new-gear': GgNewGear;
     'gg-new-request': GgNewRequest;
     'gg-profile': GgProfile;
@@ -231,6 +241,7 @@ declare module "@stencil/core" {
       'gg-gear': LocalJSX.GgGear & JSXBase.HTMLAttributes<HTMLGgGearElement>;
       'gg-gear-view': LocalJSX.GgGearView & JSXBase.HTMLAttributes<HTMLGgGearViewElement>;
       'gg-home': LocalJSX.GgHome & JSXBase.HTMLAttributes<HTMLGgHomeElement>;
+      'gg-new-badge': LocalJSX.GgNewBadge & JSXBase.HTMLAttributes<HTMLGgNewBadgeElement>;
       'gg-new-gear': LocalJSX.GgNewGear & JSXBase.HTMLAttributes<HTMLGgNewGearElement>;
       'gg-new-request': LocalJSX.GgNewRequest & JSXBase.HTMLAttributes<HTMLGgNewRequestElement>;
       'gg-profile': LocalJSX.GgProfile & JSXBase.HTMLAttributes<HTMLGgProfileElement>;

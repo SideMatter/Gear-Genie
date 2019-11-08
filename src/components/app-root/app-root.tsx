@@ -96,6 +96,8 @@ componentDidLoad() {
           <ion-route url="/gear" component="gg-gear" componentProps={{
               gearById: this.gearById
             }}/>
+            <ion-route url="/new-badge" component="gg-new-badge"
+            />
           <ion-route url="/requests" component="gg-requests" componentProps={{
               gearById: this.gearById
             }}/>

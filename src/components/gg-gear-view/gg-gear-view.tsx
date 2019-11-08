@@ -41,11 +41,11 @@ export class GgGearView {
                                     <ion-item>
 
                                         <ion-label>
-                                            Current Status
+                                            Status
                                         </ion-label>
                                         <ion-chip color="primary">
                                             <ion-icon name="checkmark-circle"></ion-icon>
-                                            <ion-label>{this.gearById.status}</ion-label>
+                                            <ion-label>Status viewable on gear page</ion-label>
                                         </ion-chip>
                                     </ion-item>
                                     <ion-item>

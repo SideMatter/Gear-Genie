@@ -2,21 +2,38 @@ import { Component, Host, h } from '@stencil/core';
 import { firestoreDB } from '../../global/firebase';
 import { Badges } from '../../interfaces';
 import { school_id } from '../../global/constants';
+import firebase from 'firebase/app'
 
 
 @Component({
   tag: 'gg-profile',
   styleUrl: 'gg-profile.css'
 })
+
 export class GgProfile {
+  name;
+email;
+uid;
   badges: any[];
   componentDidLoad() {
     firestoreDB.collection(`/schools/${school_id}/badges`).onSnapshot(snap => {
         const badgeDocs = snap.docs.map(doc => doc.data() as Badges);
         console.log('Badges', badgeDocs);
         this.badges = badgeDocs
-    })
+        var user = firebase.auth().currentUser;
+
+
+if (user != null) {
+  this.name = user.displayName;
+  this.email = user.email;
+  
+  this.uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                   // this value to authenticate with your backend server, if
+                   // you have one. Use User.getToken() instead.
+    }})
 }
+
+
 
 
   render() {
@@ -51,10 +68,10 @@ export class GgProfile {
                 UKNIGHTED A-Day 2020
                 </ion-card-subtitle>
               <ion-card-title>
-                John Doe
+               {this.name}
             </ion-card-title>
               <ion-card-subtitle>
-                Badge ID: 1920a0001
+                {this.uid}
           </ion-card-subtitle>
               <ion-chip color="light">Student</ion-chip>
               <ion-img src="https://i.ibb.co/Jtm9ZS9/Shield-White.png" alt="Shield-White" style={{ border: "0" }}></ion-img>

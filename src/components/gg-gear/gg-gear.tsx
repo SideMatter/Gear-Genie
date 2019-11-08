@@ -110,7 +110,7 @@ async calendarChanged(e) {
                                             placeholder="Tap Here To Select Date"
                                             onIonChange={e => this.calendarChanged(e)}></ion-datetime>
                                     
-                                        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Select Period Coming Soon" onIonChange={e => this.periodChanged(e)}>
+                                        <ion-select okText="Okay" cancelText="Dismiss" placeholder="Tap Here To Select Period" onIonChange={e => this.periodChanged(e)}>
                                             <ion-select-option value="A1">A1</ion-select-option>
                                             <ion-select-option value="A2">A2</ion-select-option>
                                             <ion-select-option value="A3">A3</ion-select-option>

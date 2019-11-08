@@ -22,10 +22,8 @@ interface Requests {
     username: string; // the name of the requeste
 }
 interface Badges {
-    NFCbadgeid: string, 
     day: "A-Day" | "B-Day" | "Full Time" // when do they have the class
-    firebaseUUID: String, // Firebase provided user ID
+    firebaseUUID: string, // Firebase provided user ID
     name: string, // Name
     permslevel: "Student" | "Teacher" | "Deveolper" // The Role In Class
-    QRcode: string // Self explantory
 }
