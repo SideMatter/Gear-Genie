@@ -1,44 +1,46 @@
-import {firestoreDB} from '../global/firebase';
-import {school_id} from '../global/constants';
-import {Requests} from '../interfaces';
+import { firestoreDB } from '../global/firebase';
+import { school_id } from '../global/constants';
+import { Requests } from '../interfaces';
 
 export function sayHello() {
-    return Math.random() < 0.5
-        ? 'Hello'
-        : 'Hola';
+  return Math.random() < 0.5
+    ? 'Hello'
+    : 'Hola';
 }
 
-export function statusController() {
+export function statusController(gearDate) {
   const requestedGearById = {}
 
   return firestoreDB
-      .collection(`/schools/${school_id}/requests`)
-      .where("datefilming", "==", "2001-10-05")
-      .get()
-      .then(function (querySnapshot) {
 
-          querySnapshot
-              .forEach(function (doc) {
-                  // doc.data() is never undefined for query doc snapshots
+    .collection(`/schools/${school_id}/requests`)
+    .where("datefilming", "==", gearDate)
+    .get()
+    .then(function (querySnapshot) {
 
-                  const request = doc.data()as Requests
-                  request
-                      .requestedGear
-                      .map(gear_id => console.log(gear_id))
+      querySnapshot
+        .forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
 
-                  request
-                      .requestedGear
-                      .forEach(a => requestedGearById[a] = true)
+          const request = doc.data() as Requests
+          request
+            .requestedGear
+            .map(gear_id => console.log(gear_id))
 
-                  
-              });
-return requestedGearById
-      })
-      .catch(function (error) {
-          console.log("Error getting documents: ", error);
-      });
+          request
+            .requestedGear
+            .forEach(a => requestedGearById[a] = true)
 
-    //   generateGearById(gear: Gear[]){     const gear_by_id  = {};
-    // gear.forEach(gearitem => {         gear_by_id[gearitem.id] = gearitem;
-    //  console.log(gearitem, "here")     });     return gear_by_id; }
+
+        });
+      return requestedGearById
+    })
+    .catch(function (error) {
+      console.log("Error getting documents: ", error);
+      return requestedGearById;
+    });
+
+  //   generateGearById(gear: Gear[]){     const gear_by_id  = {};
+  // gear.forEach(gearitem => {         gear_by_id[gearitem.id] = gearitem;
+  //  console.log(gearitem, "here")     });     return gear_by_id; }
 }

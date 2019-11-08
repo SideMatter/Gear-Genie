@@ -31,7 +31,7 @@ export class GgProfile {
       </ion-header>
 
         <ion-content>
-          <ion-card color="danger">
+          <ion-card>
             <ion-card-header>
               <ion-card-title>
                 WARNING
