@@ -60,8 +60,7 @@ export class GgHome {
                                     <ion-item>Added Dark Mode, so you can all live in your hermit shells and still use Gear Genie. AHHHHH MY EYES</ion-item>
                                     <ion-item>Fixed Requests so they work, because requesting gear is kinda important. IDK</ion-item>
                                     <ion-item>Added buttons that link to various related Gear Genie goodness. Github for nerds, trello board for features and progress. Only real addicts will use this, and I dont have any of those yet.</ion-item>
-                                    <ion-item></ion-item>
-                                    {/* <ion-item>STATUS STATUS STATUS! The gear page now dynmaically updates. If gear is requested for that day, it will show as requested. Alex worked really hard on this one, like a week, so in the sprit of november BE THANKFULL</ion-item> */}
+                                    <ion-item>STATUS STATUS STATUS! The gear page now dynmaically updates. If gear is requested for that day, it will show as requested. Alex worked really hard on this one, like a week, so in the sprit of november BE THANKFULL</ion-item>
                                 </ion-list>
                                 
                             </ion-card-body>
