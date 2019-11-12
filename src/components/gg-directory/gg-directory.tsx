@@ -40,6 +40,18 @@ Badges: Badges[];
           </ion-header>
           
           <ion-content>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>
+                  Directory
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-card-text>
+                  This shows everyone using Gear Genie who has badges. If you want a badge let Alex know.
+                </ion-card-text>
+              </ion-card-content>
+            </ion-card>
             <ion-list>
               <ion-item color="warning" onClick={() => this.presentToast()}> 
                 <ion-label>

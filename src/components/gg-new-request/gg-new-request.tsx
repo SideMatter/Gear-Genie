@@ -30,7 +30,7 @@ export class GgNewRequest {
     @State()
     requestedGear : string[] = [];
     @Prop() 
-    gearById : string[] = [];
+    gearById : string;
 
     @Method()
     async addGear(gear : Gear) {
@@ -151,7 +151,7 @@ export class GgNewRequest {
                     <ion-button expand="block" onClick={() => this.navigateToGear()}>Add Gear</ion-button>
                     <ion-list>
                         {this
-                            .gearById
+                            .requestedGear
                             .map(gearid => <ion-item>
                                 <ion-icon
                                     slot="start"
@@ -161,6 +161,17 @@ export class GgNewRequest {
                                         ? "sunny"
                                         : "logo-freebsd-devil"}></ion-icon>
                                 <ion-label>{this.gearById[gearid].name}</ion-label>
+                                <ion-badge
+                                slot="end"
+                                color={this.gearById[gearid].multiple == "1"
+                                ? "primary"
+                                : this.gearById[gearid].multiple == '2'
+                                    ? "warning"
+                                    : this.gearById[gearid].multiple == '3'
+                                        ? "tertiary"
+                                        : this.gearById[gearid].multiple == '4'
+                                            ? "success"
+                                            : "dark"}>{this.gearById[gearid].multiple}</ion-badge>
                             </ion-item>)
 }
                     </ion-list>

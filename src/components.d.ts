@@ -38,7 +38,7 @@ export namespace Components {
   }
   interface GgNewRequest {
     'addGear': (gear: Gear) => Promise<void>;
-    'gearById': string[];
+    'gearById': string;
     'modalCtrl': HTMLIonModalControllerElement;
   }
   interface GgProfile {}
@@ -193,7 +193,7 @@ declare namespace LocalJSX {
     'modalCtrl'?: HTMLIonModalControllerElement;
   }
   interface GgNewRequest {
-    'gearById'?: string[];
+    'gearById'?: string;
     'modalCtrl'?: HTMLIonModalControllerElement;
   }
   interface GgProfile {}

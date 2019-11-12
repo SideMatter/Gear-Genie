@@ -1,21 +1,35 @@
 import {Component, h, Host, Prop} from '@stencil/core';
-import {firestoreDB} from '../../global/firebase';
-import {school_id} from '../../global/constants';
+import { firestoreDB } from '../../global/firebase';
+import { school_id } from '../../global/constants';
+import { InputChangeEventDetail } from '@ionic/core';
+
 
 @Component({tag: 'gg-gear-view', styleUrl: 'gg-gear-view.css'})
 export class GgGearView {
     @Prop()gearid : string
     @Prop()gearById
+    requests
+    presentToast() {
+        const toast = document.createElement('ion-toast');
+        toast.message = 'Flash Check Out is not coded/ready yet. To checkout, make a new request for the date and period and gear you need. Dont worry about approval.';
+        toast.duration = 8000;
+      
+        document.body.appendChild(toast);
+        return toast.present();
+      }
+      requestNameChange(e : CustomEvent < InputChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('name', value);
+        this.requests.name = value
+    }
+flashCheckOut(){
+    console.log('this.requests', this.requests);
+    firestoreDB
+        .collection(`/schools/${school_id}/requests`)
+        .add(this.requests);
+    
+}
 
-    statusAvailable() {
-        firestoreDB.doc(`/schools/${school_id}/gear/${this.gearById[this.gearid]}`).update({status: 'Available'});
-    }
-    statusApproval() {
-        firestoreDB.doc(`/schools/${school_id}/gear/${this.gearById[this.gearid]}`).update({status: 'Needs Approval'});
-    }
-    statusUnavailable() {
-        firestoreDB.doc(`/schools/${school_id}/gear/${this.gearById[this.gearid]}`).update({status: 'Unavailable'});
-    }
 
     render() {
         return (
@@ -43,10 +57,10 @@ export class GgGearView {
                                         <ion-label>
                                             Status
                                         </ion-label>
-                                        <ion-chip color="primary">
-                                            <ion-icon name="checkmark-circle"></ion-icon>
-                                            <ion-label>Status viewable on gear page</ion-label>
-                                        </ion-chip>
+                                        <ion-button color="primary" href="/gear">
+                                            
+                                            <ion-label>View Status</ion-label>
+                                        </ion-button>
                                     </ion-item>
                                     <ion-item>
                                         <ion-label>Color Code</ion-label>
@@ -76,7 +90,7 @@ export class GgGearView {
                                 </ion-button>
                             </ion-col>
                             <ion-col>
-                                <ion-button expand="full">Check Out
+                                <ion-button expand="full" onClick={() => this.presentToast()}>Check Out
                                 </ion-button>
                             </ion-col>
                         </ion-row>
