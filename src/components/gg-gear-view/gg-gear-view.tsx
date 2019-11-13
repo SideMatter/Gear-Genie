@@ -2,13 +2,25 @@ import {Component, h, Host, Prop} from '@stencil/core';
 import { firestoreDB } from '../../global/firebase';
 import { school_id } from '../../global/constants';
 import { InputChangeEventDetail } from '@ionic/core';
+import { Requests } from '../../interfaces';
 
 
 @Component({tag: 'gg-gear-view', styleUrl: 'gg-gear-view.css'})
 export class GgGearView {
     @Prop()gearid : string
     @Prop()gearById
-    requests
+    Requests : Requests = {
+        requestname: null,
+        requestedGear: [],
+        username: null,
+        datefilming: null,
+        periodfilming: null,
+        trellocardlink: null,
+        approval: null,
+        id: null,
+        status: "needs-approval",
+        type: null
+    }
     presentToast() {
         const toast = document.createElement('ion-toast');
         toast.message = 'Flash Check Out is not coded/ready yet. To checkout, make a new request for the date and period and gear you need. Dont worry about approval.';
@@ -20,13 +32,14 @@ export class GgGearView {
       requestNameChange(e : CustomEvent < InputChangeEventDetail >) {
         const value = e.detail.value;
         console.log('name', value);
-        this.requests.name = value
+        this.Requests.username = value
     }
 flashCheckOut(){
-    console.log('this.requests', this.requests);
+    console.log('this.requests', this.Requests);
+    this.Requests.requestedGear = []
     firestoreDB
         .collection(`/schools/${school_id}/requests`)
-        .add(this.requests);
+        .add(this.Requests);
     
 }
 
@@ -80,7 +93,22 @@ flashCheckOut(){
                             </ion-card-body>
                         </ion-card-content>
                     </ion-card>
-
+<ion-card>
+    <ion-card-Header icon="flash" slot="Start">
+        <ion-icon icon="flash" slot="Start"></ion-icon>
+        <ion-card-title>Flash Check Out</ion-card-title>
+    </ion-card-Header>
+    <ion-card-content>
+        <ion-list>
+        <ion-item>
+                        <ion-label position="floating">Your Name</ion-label>
+                        <ion-input
+                            onIonChange={(e) => this.requestNameChange(e)}
+                            value={this.Requests.username}></ion-input>
+                    </ion-item>
+            </ion-list>
+    </ion-card-content>
+</ion-card>
                 </ion-content>
                 <ion-footer>
                     <ion-grid>

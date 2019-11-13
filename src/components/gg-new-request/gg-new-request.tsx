@@ -108,7 +108,7 @@ export class GgNewRequest {
                             value={this.Requests.requestname}></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="floating">Your Name</ion-label>
+                        <ion-label position="floating">Name</ion-label>
                         <ion-input
                             onIonChange={(e) => this.requestUserName(e)}
                             value={this.Requests.username}></ion-input>
