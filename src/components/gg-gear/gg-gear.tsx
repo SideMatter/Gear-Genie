@@ -1,5 +1,5 @@
 import {Component, Host, h, State, Prop} from '@stencil/core';
-import {modalController, ModalOptions, InputChangeEventDetail} from '@ionic/core';
+import {modalController, ModalOptions, SearchbarChangeEventDetail} from '@ionic/core';
 import '@firebase/auth';
 import '@firebase/database';
 import {firestoreDB} from '../../global/firebase';
@@ -102,7 +102,7 @@ export class GgGear {
         return toast.present();
     }
 
-        gearFilterText(e : CustomEvent < InputChangeEventDetail >) {
+        gearFilterText(e : CustomEvent < SearchbarChangeEventDetail >) {
             const value = e.detail.value;
             console.log('value', value);
             this.filtertext = value

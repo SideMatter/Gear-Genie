@@ -1,9 +1,8 @@
 import {Component, h, Host, Prop} from '@stencil/core';
-import { firestoreDB } from '../../global/firebase';
-import { school_id } from '../../global/constants';
-import { InputChangeEventDetail } from '@ionic/core';
-import { Requests } from '../../interfaces';
-
+import {firestoreDB} from '../../global/firebase';
+import {school_id} from '../../global/constants';
+import {InputChangeEventDetail} from '@ionic/core';
+import {Requests} from '../../interfaces';
 
 @Component({tag: 'gg-gear-view', styleUrl: 'gg-gear-view.css'})
 export class GgGearView {
@@ -22,27 +21,28 @@ export class GgGearView {
         type: null,
         requesttype: "Check-out"
     }
-      requestNameChange(e : CustomEvent < InputChangeEventDetail >) {
+    requestNameChange(e : CustomEvent < InputChangeEventDetail >) {
         const value = e.detail.value;
         console.log('name', value);
         this.Requests.username = value
     }
-flashCheckOut(){
-    console.log('this.requests', this.Requests);
-    this.Requests.requestedGear = [this.gearid]
-    this.Requests.requestname = `${this.Requests.username} checked out ${this.gearById[this.gearid].name}`
-    firestoreDB
-        .collection(`/schools/${school_id}/requests`)
-        .add(this.Requests);
+    flashCheckOut() {
+        console.log('this.requests', this.Requests);
+        this.Requests.requestedGear = [this.gearid]
+        this.Requests.requestname = `${this.Requests.username} checked out ${this.gearById[this.gearid].name}`
+        firestoreDB
+            .collection(`/schools/${school_id}/requests`)
+            .add(this.Requests);
         const toast = document.createElement('ion-toast');
         toast.message = 'Gear Checked Out. It is due back 10 mins before the end of this period.';
         toast.duration = 8000;
-      
-        document.body.appendChild(toast);
-        return toast.present();
-    
-}
 
+        document
+            .body
+            .appendChild(toast);
+        return toast.present();
+
+    }
 
     render() {
         return (
@@ -71,7 +71,7 @@ flashCheckOut(){
                                             Status
                                         </ion-label>
                                         <ion-button color="primary" href="/gear">
-                                            
+
                                             <ion-label>View Status</ion-label>
                                         </ion-button>
                                     </ion-item>
@@ -93,37 +93,32 @@ flashCheckOut(){
                             </ion-card-body>
                         </ion-card-content>
                     </ion-card>
-<ion-card>
-    <ion-card-Header icon="flash" slot="Start">
-        <ion-icon icon="flash" slot="Start"></ion-icon>
-        <ion-card-title>Flash Check Out</ion-card-title>
-    </ion-card-Header>
-    <ion-card-content>
-        <ion-list>
-        <ion-item>
-                        <ion-label position="floating">Your Name</ion-label>
-                        <ion-input
-                            onIonChange={(e) => this.requestNameChange(e)}
-                            value={this.Requests.username}></ion-input>
-                    </ion-item>
-            </ion-list>
-    </ion-card-content>
-</ion-card>
+                    <ion-card>
+                        <ion-card-Header>
+                            <ion-icon icon="flash" slot="Start"></ion-icon>
+                            <ion-card-title>Flash Check Out</ion-card-title>
+                        </ion-card-Header>
+                        <ion-card-content>
+                            <ion-list>
+                                <ion-item>
+                                    <ion-label position="floating">Your Name</ion-label>
+                                    <ion-input
+                                        onIonChange={(e) => this.requestNameChange(e)}
+                                        value={this.Requests.username}></ion-input>
+                                </ion-item>
+                            </ion-list>
+                            <ion-button expand="full" onClick={() => this.flashCheckOut()} shape="round" href='/requests'>
+                            <ion-icon name="flash"></ion-icon>
+                                Check Out
+                            </ion-button>
+                        </ion-card-content>
+                    </ion-card>
                 </ion-content>
                 <ion-footer>
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col>
-                                <ion-button href="/new-request" expand="full" color="secondary">Request
-                                </ion-button>
-                            </ion-col>
-                            <ion-col>
-                                <ion-button expand="full" onClick={() => this.flashCheckOut()}>Check Out
-                                </ion-button>
-                            </ion-col>
-                        </ion-row>
 
-                    </ion-grid>
+                    <ion-button href="/new-request" expand="full" color="secondary" shape="round" >Request
+                    </ion-button>
+
                 </ion-footer>
             </Host>
         );

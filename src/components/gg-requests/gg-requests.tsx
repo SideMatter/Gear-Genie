@@ -101,6 +101,7 @@ export class GgRequests {
                         this.requests.map(requests => <ion-card>
                             <ion-card-header>
                                 <ion-card-title>{requests.requestname}</ion-card-title>
+                              
                             </ion-card-header>
                             <ion-card-content>
                             <ion-chip
