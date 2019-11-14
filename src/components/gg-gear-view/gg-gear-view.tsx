@@ -13,22 +13,15 @@ export class GgGearView {
         requestname: null,
         requestedGear: [],
         username: null,
-        datefilming: null,
+        datefilming: "Today",
         periodfilming: null,
         trellocardlink: null,
         approval: null,
         id: null,
-        status: "needs-approval",
-        type: null
+        status: "approved",
+        type: null,
+        requesttype: "Check-out"
     }
-    presentToast() {
-        const toast = document.createElement('ion-toast');
-        toast.message = 'Flash Check Out is not coded/ready yet. To checkout, make a new request for the date and period and gear you need. Dont worry about approval.';
-        toast.duration = 8000;
-      
-        document.body.appendChild(toast);
-        return toast.present();
-      }
       requestNameChange(e : CustomEvent < InputChangeEventDetail >) {
         const value = e.detail.value;
         console.log('name', value);
@@ -36,10 +29,17 @@ export class GgGearView {
     }
 flashCheckOut(){
     console.log('this.requests', this.Requests);
-    this.Requests.requestedGear = []
+    this.Requests.requestedGear = [this.gearid]
+    this.Requests.requestname = `${this.Requests.username} checked out ${this.gearById[this.gearid].name}`
     firestoreDB
         .collection(`/schools/${school_id}/requests`)
         .add(this.Requests);
+        const toast = document.createElement('ion-toast');
+        toast.message = 'Gear Checked Out. It is due back 10 mins before the end of this period.';
+        toast.duration = 8000;
+      
+        document.body.appendChild(toast);
+        return toast.present();
     
 }
 
@@ -118,7 +118,7 @@ flashCheckOut(){
                                 </ion-button>
                             </ion-col>
                             <ion-col>
-                                <ion-button expand="full" onClick={() => this.presentToast()}>Check Out
+                                <ion-button expand="full" onClick={() => this.flashCheckOut()}>Check Out
                                 </ion-button>
                             </ion-col>
                         </ion-row>

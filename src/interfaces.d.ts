@@ -20,6 +20,7 @@ interface Requests {
     type: "camera" | "microphone" | "lighting" | "other" // what it is
     status: "needs-approval" | "approved" | "denied"  // Self explantory
     username: string; // the name of the requeste
+    requesttype: "Check-out" | "Request"
 }
 interface Badges {
     day: "A-Day" | "B-Day" | "Full Time" // when do they have the class

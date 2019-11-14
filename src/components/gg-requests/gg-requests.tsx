@@ -21,7 +21,8 @@ export class GgRequests {
         approval: null,
         id: null,
         status: "needs-approval",
-        type: null
+        type: null,
+        requesttype: null,
     }
     @State()
     requests: Requests[] = [];
@@ -102,6 +103,36 @@ export class GgRequests {
                                 <ion-card-title>{requests.requestname}</ion-card-title>
                             </ion-card-header>
                             <ion-card-content>
+                            <ion-chip
+                                    color={requests.requesttype == "Check-out"
+                                        ? "secondary"
+                                     : "primary"}>
+                                    <ion-icon
+                                        name={requests.requesttype == "Check-out"
+                                        ? "flash"
+                                     : "albums"}></ion-icon>
+                                    <ion-label>{requests.requesttype == "Check-out"
+                                        ? "Flash Check-Out"
+                                     : "Request"}</ion-label>
+                                </ion-chip>
+                                <ion-chip
+                                    color={requests.status == "denied"
+                                        ? "danger"
+                                        : requests.status == 'approved'
+                                            ? "success"
+                                            : "warning"}>
+                                    <ion-icon
+                                        name={requests.status == "denied"
+                                            ? "close-circle"
+                                            : requests.status == 'approved'
+                                                ? "checkmark-circle"
+                                                : "contacts"}></ion-icon>
+                                    <ion-label>{requests.status == "denied"
+                                        ? "Declined"
+                                        : requests.status == 'approved'
+                                            ? "Approved"
+                                            : "Needs Approval"}</ion-label>
+                                </ion-chip>
                                 <ion-list>
                                     {requests
                                         .requestedGear
@@ -133,24 +164,7 @@ export class GgRequests {
 
                                 <ion-button expand="block">Edit Request</ion-button>
 
-                                <ion-chip
-                                    color={requests.status == "denied"
-                                        ? "danger"
-                                        : requests.status == 'approved'
-                                            ? "success"
-                                            : "warning"}>
-                                    <ion-icon
-                                        name={requests.status == "denied"
-                                            ? "close-circle"
-                                            : requests.status == 'approved'
-                                                ? "checkmark-circle"
-                                                : "contacts"}></ion-icon>
-                                    <ion-label>{requests.status == "denied"
-                                        ? "Declined"
-                                        : requests.status == 'approved'
-                                            ? "Approved"
-                                            : "Needs Approval"}</ion-label>
-                                </ion-chip>
+                                
                                 <ion-chip color="primary">
                                     <ion-icon name="time"></ion-icon>
                                     <ion-label>{requests.periodfilming}</ion-label>

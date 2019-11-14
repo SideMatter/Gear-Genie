@@ -23,7 +23,8 @@ export class GgNewRequest {
         approval: null,
         id: null,
         status: "needs-approval",
-        type: null
+        type: null,
+        requesttype: "Request"
     }
     @Prop()
     modalCtrl : HTMLIonModalControllerElement;
