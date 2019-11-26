@@ -21,33 +21,30 @@ export class GgTv {
     
     filtertext: string;
 
-    componentDidLoad() {
-        firestoreDB.collection(`/schools/${school_id}/requests`).onSnapshot(snap => {
-            const requestDocs = snap.docs.map(doc => doc.data() as Requests);
-            console.log('Requests', requestDocs);
-            this.requests = requestDocs
-            firestoreDB
-                .collection(`/schools/${school_id}/gear`)
-                .orderBy("datefilming", "desc")
-                .onSnapshot(snap => {
-                    const gearDocs = snap
-                        .docs
-                        .map(doc => {
-                            const gear = doc.data() as Gear;
-                            gear.id = doc.id;
-                            return gear
-                        });
-                    console.log('gear', gearDocs);
-                    this.gear = gearDocs
-                   
-                })
-        })
-    }
+    componentDidLoad(){
+        firestoreDB
+            .collection(`/schools/${school_id}/gear`)
+            .orderBy("datefilming", "desc")
+            .onSnapshot(snap => {
+                const gearDocs = snap
+                    .docs
+                    .map(doc => {
+                        const gear = doc.data() as Gear;
+                        gear.id = doc.id;
+                        return gear
+                    });
+                console.log('gear', gearDocs);
+                this.gear = gearDocs
+            })
+        }
     
 
     render() {
+
         return (
+            
             <Host><ion-header>
+        
                 <ion-toolbar>
                     <ion-menu-button slot="start"></ion-menu-button>
                     <ion-title>TV View</ion-title>
@@ -70,8 +67,10 @@ export class GgTv {
                             <ion-select-option value="Afterschool">After School</ion-select-option>
                             <ion-select-option value="Lunch">Lunch</ion-select-option>
                         </ion-select>
-                        
+                       
+                            
                <table>
+                  
   <tr>
     <th>Gear</th>
     <th>Monday</th>
@@ -81,24 +80,16 @@ export class GgTv {
     <th>Friday</th>
 
   </tr>
+   {this.gear.map(gear =>
   <tr>
-    <td>C200</td>
+    <td>{gear.name}</td>
     <td>Available</td>
     <td>Available</td>
     <td>Available</td>
     <td>Available</td>
     <td>Available</td>
   </tr>
-  <tr>
-    <td>C200</td>
-    <td>Reserved</td>
-    <td>Reserved</td>
-    <td>Reserved</td>
-    <td>Reserved</td>
-    <td>Reserved</td>
-   
-
-  </tr>
+                    )}
 </table>
 
                 </ion-content>

@@ -18,40 +18,22 @@ export class GgGear {
     requests : Requests[];
     filtertext: string;
 
-    componentDidLoad() {
+    componentDidLoad(){
         firestoreDB
-            .collection(`/schools/${school_id}/requests`)
+            .collection(`/schools/${school_id}/gear`)
+            .orderBy("datefilming", "desc")
             .onSnapshot(snap => {
-                const requestDocs = snap
+                const gearDocs = snap
                     .docs
-                    .map(doc => doc.data()as Requests);
-                console.log('Requests', requestDocs);
-                this.requests = requestDocs
-                firestoreDB
-                    .collection(`/schools/${school_id}/gear`)
-                    .orderBy("name")
-                    .onSnapshot(snap => {
-                        const gearDocs = snap
-                            .docs
-                            .map(doc => {
-                                const gear = doc.data()as Gear;
-                                gear.id = doc.id;
-                                return gear
-                            });
-                        console.log('gear', gearDocs);
-                        this.gear = gearDocs
-
-                    })
+                    .map(doc => {
+                        const gear = doc.data() as Gear;
+                        gear.id = doc.id;
+                        return gear
+                    });
+                console.log('gear', gearDocs);
+                this.gear = gearDocs
             })
-            const skeletonEl = document.getElementById('skeleton');
-  const dataEl = document.getElementById('data');
-
-  setTimeout(() => {
-    skeletonEl.style.display = 'none';
-    dataEl.style.display = 'block';
-  }, 5000);
-
-    }
+        }
     async openModal() {
         const modalCtrl = modalController;
         const options : ModalOptions = {
