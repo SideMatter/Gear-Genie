@@ -8,6 +8,7 @@ import { Requests, Gear } from '../../interfaces';
     tag: 'gg-tv',
     styleUrl: 'gg-tv.css'
 })
+
 export class GgTv {
     @State()
     requests: Requests[] = [];
@@ -24,7 +25,7 @@ export class GgTv {
     componentDidLoad(){
         firestoreDB
             .collection(`/schools/${school_id}/gear`)
-            .orderBy("datefilming", "desc")
+            .orderBy("name")
             .onSnapshot(snap => {
                 const gearDocs = snap
                     .docs
@@ -38,9 +39,17 @@ export class GgTv {
             })
         }
     
-
+        reservedGearIDByDate = {
+            "2019-11-25": {
+              "LwHWZGxbbpN6FT0Lyfj5": true,
+              "Zb3WKpMwCV7QJN1kFeIs": true,
+            },
+            "2019-11-26": {
+              "lHB1NRiglq6ikfcNkyu5": true,
+            }
+          }
     render() {
-
+console.log('HERE' , this.gear)
         return (
             
             <Host><ion-header>
@@ -82,12 +91,37 @@ export class GgTv {
   </tr>
    {this.gear.map(gear =>
   <tr>
-    <td>{gear.name}</td>
-    <td>Available</td>
-    <td>Available</td>
-    <td>Available</td>
-    <td>Available</td>
-    <td>Available</td>
+    <td>{gear.name}  <ion-badge
+                                slot="end"
+                                color={gear.multiple == "1"
+                                ? "primary"
+                                : gear.multiple == '2'
+                                    ? "warning"
+                                    : gear.multiple == '3'
+                                        ? "danger"
+                                        : gear.multiple == '4'
+                                            ? "success"
+                                            : "dark"}>{gear.multiple}</ion-badge></td>
+    <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
+                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+                            </ion-chip></td>
+                            <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
+                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+                            </ion-chip></td>
+                            <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
+                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+                            </ion-chip></td>
+                            <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
+                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+                            </ion-chip></td>
+    <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
+                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+                            </ion-chip></td>
   </tr>
                     )}
 </table>
@@ -96,4 +130,5 @@ export class GgTv {
             </Host>
         );
     }
+    
 }
