@@ -54,7 +54,23 @@ export class GgRequests {
             console.log('Requests', requestDocs);
             this.requests = requestDocs
             firestoreDB
+            .collection(`/schools/${school_id}/requests`)
+            .orderBy("datefilming")
+            .onSnapshot(snap => {
+                const RequestDocs = snap
+                    .docs
+                    .map(doc => {
+                        const Request = doc.data()as Requests;
+                        Request.id = doc.id;
+                        return Request;
+                    });
+
+                console.log('Requests', RequestDocs);
+                this.requests = RequestDocs
+            })
+            firestoreDB
                 .collection(`/schools/${school_id}/gear`)
+                .orderBy("datefilming", "desc")
                 .onSnapshot(snap => {
                     const gearDocs = snap
                         .docs
@@ -69,6 +85,33 @@ export class GgRequests {
                 })
         })
     }
+    deleteRequest(request : Requests) {
+        const toast = document.createElement('ion-toast');
+  toast.header = 'Are you sure you would like to delete this request?';
+  toast.message = 'There is no undo. There is no command-Z. Once its gone its gone forever. Alex can not bring it back, as it deletes it from firebase';
+  toast.position = 'bottom';
+  toast.buttons = [
+    {
+      side: 'start',
+      icon: 'trash',
+      text: 'Delete Request',
+      handler: () => {
+        firestoreDB
+            .doc(`/schools/${school_id}/requests/${request.id}`)
+            .delete()
+      }
+    }, {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    }
+  ];
+
+  document.body.appendChild(toast);
+  return toast.present();
+}
     async openModal() {
         const modalCtrl = modalController;
         const options: ModalOptions = {
@@ -84,7 +127,15 @@ export class GgRequests {
         const modal = await modalCtrl.create(options);
         modal.present();
     }
-
+    presentToast() {
+        const toast = document.createElement('ion-toast');
+        toast.message = 'Editing requests is not developed yet. If you need to change something, just make a new request AND tell Alex so he can delete the old one. Its on my to-do list of things to fix';
+        toast.duration = 4000;
+      
+        document.body.appendChild(toast);
+        return toast.present();
+      }
+  
 
 
     render() {
@@ -159,13 +210,17 @@ export class GgRequests {
                                             ? "success"
                                             : "dark"}>{this.gearById[gearid].multiple}</ion-badge>
 
-                                        </ion-item>)
+                                        </ion-item>
+                                        
+                                        )
                                     }   
                                 </ion-list>
 
-                                <ion-button expand="block">Edit Request</ion-button>
 
-                                
+                                <ion-button
+                                    onClick={() => this.deleteRequest(requests)}
+                                    expand="block"
+                    color="tertiary"><ion-icon name="trash" slot="start"></ion-icon>Delete Request</ion-button>
                                 <ion-chip color="primary">
                                     <ion-icon name="time"></ion-icon>
                                     <ion-label>{requests.periodfilming}</ion-label>

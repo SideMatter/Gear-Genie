@@ -2,9 +2,10 @@ import {Component, Host, h, State, Prop,} from '@stencil/core';
 import '@firebase/auth';
 import '@firebase/database';
 import {firestoreDB} from '../../global/firebase';
-import {Gear} from '../../interfaces';
+import {Gear, Requests} from '../../interfaces';
 import {SelectChangeEventDetail} from '@ionic/core';
 import { school_id, } from '../../global/constants';
+import {statusController} from '../../helpers/utils';
 
 @Component({tag: 'gg-add-gear-to-request', styleUrl: 'gg-add-gear-to-request.css'})
 export class GgAddGearToRequest {
@@ -12,14 +13,21 @@ export class GgAddGearToRequest {
     gear : Gear[] = [];
     @State()
     filterType = 'camera'
+    @State()reservedGearById = {};
+     @Prop()
+    gearById : string; //comes from route url
+    requests : Requests[];
+    filtertext: string;
     @Prop()
-     gearid: string; //comes from route url
+periodFilming: string; //passed from other component
+@Prop()
+date: string; //passed from other component
    
-    
-
-    componentDidLoad() {
+    async componentDidLoad() {
+        
         firestoreDB
             .collection(`/schools/${school_id}/gear`)
+            .orderBy("name")
             .onSnapshot(snap => {
                 const gearDocs = snap
                     .docs
@@ -32,6 +40,13 @@ export class GgAddGearToRequest {
                 this.gear = gearDocs
                 
             })
+            
+            
+
+        const response2 = await statusController(this.date, this.periodFilming);
+        this.reservedGearById = response2 
+        console.log('periodFilming', this.periodFilming)
+        console.log('date', this.date)
     }
     segmentChanged(e : CustomEvent < SelectChangeEventDetail >) {
         const value = e.detail.value;
@@ -78,7 +93,8 @@ export class GgAddGearToRequest {
                         {this
                             .gear
                             .filter(gear => gear.type === this.filterType)
-                            .map(gear => <ion-item onClick={() => this.clickGear(gear)}>
+                            
+                        .map(gear => <ion-item disabled={this.reservedGearById[gear.id] == "Unavailable" ? true : false} onClick={() => this.clickGear(gear)}>
                                 <ion-icon
                                     slot="start"
                                     name={gear.type == "camera"
@@ -87,11 +103,27 @@ export class GgAddGearToRequest {
                                         ? "sunny"
                                         : "logo-freebsd-devil"}></ion-icon>
                                 <ion-label>{gear.name}</ion-label>
-                                <ion-badge slot="end">{gear.multiple}</ion-badge>
-                                <ion-chip color="primary">
-                                    <ion-icon name="checkmark-circle"></ion-icon>
-                                    <ion-label>Available</ion-label>
-                                </ion-chip>
+                                <ion-badge
+                                slot="end"
+                                color={gear.multiple == "1"
+                                ? "primary"
+                                : gear.multiple == '2'
+                                    ? "warning"
+                                    : gear.multiple == '3'
+                                        ? "danger"
+                                        : gear.multiple == '4'
+                                            ? "success"
+                                            : "dark"}>{gear.multiple}</ion-badge>
+                                <ion-chip
+                                
+                                color={this.reservedGearById[gear.id]
+                                ? 'danger'
+                                : 'primary'}>
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                                <ion-label>{this.reservedGearById[gear.id]
+                                        ? 'Unavailable'
+                                        : 'Available'}</ion-label>
+                            </ion-chip>
                             </ion-item>)
 }
                     </ion-list>

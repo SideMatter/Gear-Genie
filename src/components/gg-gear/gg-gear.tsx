@@ -29,6 +29,7 @@ export class GgGear {
                 this.requests = requestDocs
                 firestoreDB
                     .collection(`/schools/${school_id}/gear`)
+                    .orderBy("name")
                     .onSnapshot(snap => {
                         const gearDocs = snap
                             .docs
@@ -42,6 +43,14 @@ export class GgGear {
 
                     })
             })
+            const skeletonEl = document.getElementById('skeleton');
+  const dataEl = document.getElementById('data');
+
+  setTimeout(() => {
+    skeletonEl.style.display = 'none';
+    dataEl.style.display = 'block';
+  }, 5000);
+
     }
     async openModal() {
         const modalCtrl = modalController;
@@ -173,7 +182,7 @@ export class GgGear {
                                 : gear.multiple == '2'
                                     ? "warning"
                                     : gear.multiple == '3'
-                                        ? "tertiary"
+                                        ? "danger"
                                         : gear.multiple == '4'
                                             ? "success"
                                             : "dark"}>{gear.multiple}</ion-badge>
@@ -196,6 +205,7 @@ export class GgGear {
                         </ion-fab-button>
                     </ion-fab>
                 </ion-content>
+                
             </Host>
         );
     }

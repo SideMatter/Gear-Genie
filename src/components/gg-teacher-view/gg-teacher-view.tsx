@@ -32,6 +32,7 @@ export class GgTeacherview {
     componentDidLoad() {
         firestoreDB
             .collection(`/schools/${school_id}/requests`)
+            .orderBy("datefilming")
             .onSnapshot(snap => {
                 const RequestDocs = snap
                     .docs
@@ -68,6 +69,33 @@ export class GgTeacherview {
         document.body.appendChild(toast);
         return toast.present();
     }
+    deleteRequest(request : Requests) {
+        const toast = document.createElement('ion-toast');
+  toast.header = 'Are you sure you would like to delete this request?';
+  toast.message = 'There is no undo. There is no command-Z. Once its gone its gone forever. Alex can not bring it back, as it deletes it from firebase';
+  toast.position = 'bottom';
+  toast.buttons = [
+    {
+      side: 'start',
+      icon: 'trash',
+      text: 'Delete Request',
+      handler: () => {
+        firestoreDB
+            .doc(`/schools/${school_id}/requests/${request.id}`)
+            .delete()
+      }
+    }, {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    }
+  ];
+
+  document.body.appendChild(toast);
+  return toast.present();
+}
     async openModal() {
         const modalCtrl = modalController;
         const options : ModalOptions = {
@@ -163,7 +191,7 @@ export class GgTeacherview {
                                                 : this.gearById[gearid].multiple == '2'
                                                     ? "warning"
                                                     : this.gearById[gearid].multiple == '3'
-                                                        ? "tertiary"
+                                                        ? "danger"
                                                          : this.gearById[gearid].multiple == '4'
                                                         ? "success"
                                                         : "dark"}>{this.gearById[gearid].multiple}</ion-badge>
@@ -177,11 +205,20 @@ export class GgTeacherview {
                                     onClick={() => this.declineRequest(requests)}
                                     expand="block"
                                     color="danger">Decline Request</ion-button>
+                                    <ion-button
+                                    onClick={() => this.deleteRequest(requests)}
+                                    expand="block"
+                    color="tertiary"><ion-icon name="trash" slot="start"></ion-icon>Delete Request</ion-button>
                                
                                 <ion-chip color="primary">
                                     <ion-icon name="calendar"></ion-icon>
                                     <ion-label>{requests.datefilming}</ion-label>
                                 </ion-chip>
+
+                                <ion-chip color="primary">
+                                    <ion-icon name="time"></ion-icon>
+                                    <ion-label>{requests.periodfilming}</ion-label>
+                                    </ion-chip>
                                 <ion-chip color="primary">
                                     <ion-icon name="contact"></ion-icon>
                                     <ion-label>{requests.username}</ion-label>
@@ -191,9 +228,7 @@ export class GgTeacherview {
                         </ion-card>)
 }
                 </ion-content>
-                <ion-footer>
-                    <ion-button expand="block">Return Gear</ion-button>
-                </ion-footer>
+               
             </Host>
         );
     }

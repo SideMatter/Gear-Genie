@@ -16,7 +16,9 @@ export namespace Components {
     'gearid': string;
   }
   interface GgAddGearToRequest {
-    'gearid': string;
+    'date': string;
+    'gearById': string;
+    'periodFilming': string;
   }
   interface GgAuth {}
   interface GgCheckinout {
@@ -51,6 +53,9 @@ export namespace Components {
     'gearid': string;
   }
   interface GgTeacherView {
+    'gearById': string;
+  }
+  interface GgTv {
     'gearById': string;
   }
 }
@@ -147,6 +152,12 @@ declare global {
     prototype: HTMLGgTeacherViewElement;
     new (): HTMLGgTeacherViewElement;
   };
+
+  interface HTMLGgTvElement extends Components.GgTv, HTMLStencilElement {}
+  var HTMLGgTvElement: {
+    prototype: HTMLGgTvElement;
+    new (): HTMLGgTvElement;
+  };
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement;
     'gg-add-gear-to-request': HTMLGgAddGearToRequestElement;
@@ -163,6 +174,7 @@ declare global {
     'gg-requests': HTMLGgRequestsElement;
     'gg-status-popup': HTMLGgStatusPopupElement;
     'gg-teacher-view': HTMLGgTeacherViewElement;
+    'gg-tv': HTMLGgTvElement;
   }
 }
 
@@ -172,7 +184,9 @@ declare namespace LocalJSX {
     'gearid'?: string;
   }
   interface GgAddGearToRequest {
-    'gearid'?: string;
+    'date'?: string;
+    'gearById'?: string;
+    'periodFilming'?: string;
   }
   interface GgAuth {}
   interface GgCheckinout {
@@ -207,6 +221,9 @@ declare namespace LocalJSX {
   interface GgTeacherView {
     'gearById'?: string;
   }
+  interface GgTv {
+    'gearById'?: string;
+  }
 
   interface IntrinsicElements {
     'app-root': AppRoot;
@@ -224,6 +241,7 @@ declare namespace LocalJSX {
     'gg-requests': GgRequests;
     'gg-status-popup': GgStatusPopup;
     'gg-teacher-view': GgTeacherView;
+    'gg-tv': GgTv;
   }
 }
 
@@ -248,6 +266,7 @@ declare module "@stencil/core" {
       'gg-requests': LocalJSX.GgRequests & JSXBase.HTMLAttributes<HTMLGgRequestsElement>;
       'gg-status-popup': LocalJSX.GgStatusPopup & JSXBase.HTMLAttributes<HTMLGgStatusPopupElement>;
       'gg-teacher-view': LocalJSX.GgTeacherView & JSXBase.HTMLAttributes<HTMLGgTeacherViewElement>;
+      'gg-tv': LocalJSX.GgTv & JSXBase.HTMLAttributes<HTMLGgTvElement>;
     }
   }
 }

@@ -32,6 +32,8 @@ export class GgNewRequest {
     requestedGear : string[] = [];
     @Prop() 
     gearById : string;
+    periodFilming: any;
+    date: any;
 
     @Method()
     async addGear(gear : Gear) {
@@ -63,12 +65,15 @@ export class GgNewRequest {
         const value = e.detail.value;
         console.log('value', value);
         this.Requests.datefilming = value
+        this.date = value
     }
 
     requestPeriodFilming(e : CustomEvent < SelectChangeEventDetail >) {
         const value = e.detail.value;
         console.log('type', value);
         this.Requests.periodfilming = value
+        this.periodFilming = e.detail.value
+        console.log('periodFilming', this.periodFilming);
     }
     requestTrelloCardLink(e : CustomEvent < InputChangeEventDetail >) {
         const value = e.detail.value;
@@ -80,12 +85,21 @@ export class GgNewRequest {
         firestoreDB
             .collection(`/schools/${school_id}/requests`)
             .add(this.Requests);
+            
         this.closeModal();
+        const toast = document.createElement('ion-toast');
+        toast.message = 'Request Placed! It will be approved or declined in 24-48 hours.';
+        toast.duration = 2000;
+      
+        document.body.appendChild(toast);
+        return toast.present();
+      
     }
     navigateToGear() {
         const page = document.querySelector("gg-new-request");
         const nav = page.closest("ion-nav");
-        nav.push("gg-add-gear-to-request");
+        nav.push("gg-add-gear-to-request", { date:this.date, periodFilming:this.periodFilming});
+        
     }
 
     render() {
