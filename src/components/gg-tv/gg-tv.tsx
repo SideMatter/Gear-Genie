@@ -38,7 +38,7 @@ export class GgTv {
                 this.gear = gearDocs
             })
         }
-    
+        weekDates = ['2019-11-25', '2019-11-26', '2019-11-27', '2019-11-28', '2019-11-29']
         reservedGearIDByDate = {
             "2019-11-25": {
               "LwHWZGxbbpN6FT0Lyfj5": true,
@@ -51,7 +51,6 @@ export class GgTv {
     render() {
 console.log('HERE' , this.gear)
         return (
-            
             <Host><ion-header>
         
                 <ion-toolbar>
@@ -102,26 +101,43 @@ console.log('HERE' , this.gear)
                                         : gear.multiple == '4'
                                             ? "success"
                                             : "dark"}>{gear.multiple}</ion-badge></td>
-    <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
-                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
-                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+    <td><ion-chip color={this.reservedGearIDByDate
+                                ? 'danger'
+                                : 'primary'}>
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate
+                                        ? 'Unavailable'
+                                        : 'Available'}</ion-label>
                             </ion-chip></td>
-                            <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
-                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
-                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+    <td><ion-chip color={this.reservedGearIDByDate
+                                ? 'primary'
+                                : 'danger'}>
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate
+                                        ? 'Available'
+                                        : 'Unavailable'}</ion-label>
                             </ion-chip></td>
-                            <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
-                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
-                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+    <td><ion-chip color={this.reservedGearIDByDate
+                                ? 'danger'
+                                : 'primary'}>
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate
+                                        ? 'Unavailable'
+                                        : 'Available'}</ion-label>
                             </ion-chip></td>
-                            <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
-                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
-                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
+    <td><ion-chip color={this.reservedGearIDByDate
+                                ? 'danger'
+                                : 'primary'}>
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate
+                                        ? 'Unavailable'
+                                        : 'Available'}</ion-label>
                             </ion-chip></td>
-    <td><ion-chip color={this.reservedGearIDByDate['2019-11-25'][gear.id]? "danger": "success"}>
-                                <ion-icon name={this.reservedGearIDByDate['2019-11-25'][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
-                                <ion-label>{this.reservedGearIDByDate['2019-11-25'][gear.id]? "Unavailable": "Available"}</ion-label>
-                            </ion-chip></td>
+                            {this.weekDates.map(date =>
+    <td><ion-chip color={this.reservedGearIDByDate[date][gear.id]? "danger": "success"}>
+                                <ion-icon name={this.reservedGearIDByDate[date][gear.id]? "close-circle": "checkmark-circle"}></ion-icon>
+                                <ion-label>{this.reservedGearIDByDate[date][gear.id]? "Requested": "Available"}</ion-label>
+                            </ion-chip></td>)}
   </tr>
                     )}
 </table>
