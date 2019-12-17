@@ -166,7 +166,7 @@ export class GgGear {
                     {this
                         .gear
                         // .filter(gear => gear.name === this.filtertext)
-                        .map(gear => <ion-item>
+                        .map(gear => <ion-item href={`/gear/${gear.id}`}>
                             <ion-icon
                                 slot="start"
                                 name={gear.type == "camera"
@@ -175,7 +175,7 @@ export class GgGear {
                                     ? "sunny"
                                     : "logo-freebsd-devil"}></ion-icon>
                             <ion-label>{gear.name}</ion-label>
-                            <ion-badge
+                            <ion-badge 
                                 slot="end"
                                 color={gear.multiple == "1"
                                 ? "primary"

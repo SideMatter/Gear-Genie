@@ -3,5 +3,6 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "custom"
+  "type": "custom",
+  "id": "1a463c9f"
 }

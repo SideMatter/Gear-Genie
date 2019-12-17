@@ -1,7 +1,11 @@
 import {Component, Host, h} from '@stencil/core';
 
 @Component({tag: 'gg-home', styleUrl: 'gg-home.css'})
+
 export class GgHome {
+     toggleDarkTheme() {
+        document.body.classList.toggle('dark',);
+      }
 
     render() {
         return (
@@ -11,12 +15,7 @@ export class GgHome {
                         <ion-buttons slot="start">
                             <ion-menu-button></ion-menu-button>
                         </ion-buttons>
-                        <ion-buttons slot="secondary">
-                            <ion-button href="/profile">
-                                <ion-icon slot="icon-only" name="contact"></ion-icon>
-                            </ion-button>
-                        </ion-buttons>
-                        <ion-title>
+                         <ion-title>
                             Home
                         </ion-title>
                     </ion-toolbar>
@@ -31,18 +30,28 @@ export class GgHome {
                         <ion-card-content>
                             <ion-card-body></ion-card-body>
                             <ion-button href="/requests" expand="block" shape="round">
+                            <ion-icon name="albums" slot="start"></ion-icon>
                                 View Requests
                             </ion-button>
                             <ion-button href="/gear" expand="block" shape="round">
-                                View Gear
+                            <ion-icon name="videocam" slot="start"></ion-icon>
+                                View Gear Availablity
                             </ion-button>
                             <ion-button color="secondary" shape="round" href="https://github.com/SideMatter/gear-genie-stencil" expand="block">
+                            <ion-icon name="logo-octocat" slot="start"></ion-icon>
                                 View Github
                             </ion-button>
                             <ion-button color="secondary" shape="round" href="https://trello.com/b/mAs82Vmo/gear-genie-roadmap" expand="block">
+                            <ion-icon name="videocam" slot="start"></ion-icon>
                                 View Trello Board
                             </ion-button>
+                            <ion-button onClick={() => this.toggleDarkTheme()} expand="block" shape="round" color="dark">
+                            <ion-icon name="contrast" slot="start"></ion-icon>
+                                Light Switch
+                                
+                            </ion-button>
                             <ion-button color="tertiary" shape="round" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" expand="block">
+                            <ion-icon name="logo-youtube" slot="start"></ion-icon>
                                Pointless Button
                             </ion-button>
                            

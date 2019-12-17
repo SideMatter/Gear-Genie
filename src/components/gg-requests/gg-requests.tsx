@@ -87,14 +87,14 @@ export class GgRequests {
     }
     deleteRequest(request : Requests) {
         const toast = document.createElement('ion-toast');
-  toast.header = 'Are you sure you would like to delete this request?';
-  toast.message = 'There is no undo. There is no command-Z. Once its gone its gone forever. Alex can not bring it back, as it deletes it from firebase';
+  toast.header = 'Request Murderer 3000';
+  toast.message = 'Are you sure you want to delete this request?';
   toast.position = 'bottom';
   toast.buttons = [
     {
       side: 'start',
       icon: 'trash',
-      text: 'Delete Request',
+      text: 'Delete',
       handler: () => {
         firestoreDB
             .doc(`/schools/${school_id}/requests/${request.id}`)
@@ -220,6 +220,7 @@ export class GgRequests {
                                 <ion-button
                                     onClick={() => this.deleteRequest(requests)}
                                     expand="block"
+                                    shape="round"
                     color="tertiary"><ion-icon name="trash" slot="start"></ion-icon>Delete Request</ion-button>
                                 <ion-chip color="primary">
                                     <ion-icon name="time"></ion-icon>

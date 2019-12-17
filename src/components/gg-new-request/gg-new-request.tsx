@@ -86,11 +86,12 @@ export class GgNewRequest {
             .collection(`/schools/${school_id}/requests`)
             .add(this.Requests);
             
-        this.closeModal();
+
         const toast = document.createElement('ion-toast');
         toast.message = 'Request Placed! It will be approved or declined in 24-48 hours.';
         toast.duration = 2000;
-      
+        
+        this.closeModal();
         document.body.appendChild(toast);
         return toast.present();
       

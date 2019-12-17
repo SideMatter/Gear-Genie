@@ -1,7 +1,7 @@
 import {Component, h, Host, Prop} from '@stencil/core';
 import {firestoreDB} from '../../global/firebase';
 import {school_id} from '../../global/constants';
-import {InputChangeEventDetail} from '@ionic/core';
+import {InputChangeEventDetail, DatetimeChangeEventDetail, SelectChangeEventDetail} from '@ionic/core';
 import {Requests} from '../../interfaces';
 
 @Component({tag: 'gg-gear-view', styleUrl: 'gg-gear-view.css'})
@@ -12,7 +12,7 @@ export class GgGearView {
         requestname: null,
         requestedGear: [],
         username: null,
-        datefilming: "Today",
+        datefilming: null,
         periodfilming: null,
         trellocardlink: null,
         approval: null,
@@ -21,6 +21,8 @@ export class GgGearView {
         type: null,
         requesttype: "Check-out"
     }
+    date: string;
+    periodFilming: any;
     requestNameChange(e : CustomEvent < InputChangeEventDetail >) {
         const value = e.detail.value;
         console.log('name', value);
@@ -43,6 +45,20 @@ export class GgGearView {
         return toast.present();
 
     }
+    requestDateFilming(e : CustomEvent < DatetimeChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('value', value);
+        this.Requests.datefilming = value
+        this.date = value
+    }
+    requestPeriodFilming(e : CustomEvent < SelectChangeEventDetail >) {
+        const value = e.detail.value;
+        console.log('type', value);
+        this.Requests.periodfilming = value
+        this.periodFilming = e.detail.value
+        console.log('periodFilming', this.periodFilming);
+    }
+    
 
     render() {
         return (
@@ -78,7 +94,7 @@ export class GgGearView {
                                     <ion-item>
                                         <ion-label>Color Code</ion-label>
                                         <ion-badge
-                                            slot="start"
+                                            slot="end"
                                             color={this.gearById[this.gearid].multiple == "1"
                                             ? "primary"
                                             : this.gearById[this.gearid].multiple == '2'
@@ -106,6 +122,33 @@ export class GgGearView {
                                         onIonChange={(e) => this.requestNameChange(e)}
                                         value={this.Requests.username}></ion-input>
                                 </ion-item>
+                                <ion-item>
+                        <ion-label>Period Filming</ion-label>
+                        <ion-select
+                            value={this.Requests.periodfilming}
+                            onIonChange={(e) => this.requestPeriodFilming(e)}
+                            okText="Okay"
+                            cancelText="Dismiss">
+
+                            <ion-select-option value="A1">A1</ion-select-option>
+                            <ion-select-option value="A2">A2</ion-select-option>
+                            <ion-select-option value="A3">A3</ion-select-option>
+                            <ion-select-option value="A4">A4</ion-select-option>
+                            <ion-select-option value="B5">B5</ion-select-option>
+                            <ion-select-option value="B6">B6</ion-select-option>
+                            <ion-select-option value="B7">B7</ion-select-option>
+                            <ion-select-option value="B8">B8</ion-select-option>
+                            <ion-select-option value="Afterschool">After School</ion-select-option>
+                            <ion-select-option value="Lunch">Lunch</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="fixed">Date Filming</ion-label>
+                        <ion-input
+                         onIonChange={(e) => this.requestDateFilming(e)}
+                            type="date"
+                            value={this.Requests.datefilming}></ion-input>
+                    </ion-item>
                             </ion-list>
                             <ion-button expand="full" onClick={() => this.flashCheckOut()} shape="round" href='/requests'>
                             <ion-icon name="flash"></ion-icon>

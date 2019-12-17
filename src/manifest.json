@@ -1,15 +1,15 @@
 {
-  "name": "gear-genie-stencil",
-  "short_name": "gear-genie-stencil",
+  "name": "gear-genie",
+  "short_name": "gear-genie",
   "start_url": "/",
   "display": "standalone",
   "icons": [{
-    "src": "assets/icon/icon192.png",
-    "sizes": "192x192",
+    "src": "assets/icon/icon-180.png",
+    "sizes": "180x180",
     "type": "image/png"
   },{
-    "src": "assets/icon/icon512.png",
-    "sizes": "512x512",
+    "src": "assets/icon/icon-167.png",
+    "sizes": "167x167",
     "type": "image/png"
   }],
   "background_color": "#488aff",
