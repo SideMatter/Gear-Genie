@@ -26,6 +26,11 @@ export namespace Components {
     'gearid': string;
   }
   interface GgDirectory {}
+  interface GgEditRequest {
+    'addGear': (gear: Gear) => Promise<void>;
+    'gearById': string;
+    'modalCtrl': HTMLIonModalControllerElement;
+  }
   interface GgGear {
     'gearById': string;
   }
@@ -91,6 +96,12 @@ declare global {
   var HTMLGgDirectoryElement: {
     prototype: HTMLGgDirectoryElement;
     new (): HTMLGgDirectoryElement;
+  };
+
+  interface HTMLGgEditRequestElement extends Components.GgEditRequest, HTMLStencilElement {}
+  var HTMLGgEditRequestElement: {
+    prototype: HTMLGgEditRequestElement;
+    new (): HTMLGgEditRequestElement;
   };
 
   interface HTMLGgGearElement extends Components.GgGear, HTMLStencilElement {}
@@ -164,6 +175,7 @@ declare global {
     'gg-auth': HTMLGgAuthElement;
     'gg-checkinout': HTMLGgCheckinoutElement;
     'gg-directory': HTMLGgDirectoryElement;
+    'gg-edit-request': HTMLGgEditRequestElement;
     'gg-gear': HTMLGgGearElement;
     'gg-gear-view': HTMLGgGearViewElement;
     'gg-home': HTMLGgHomeElement;
@@ -194,6 +206,10 @@ declare namespace LocalJSX {
     'gearid'?: string;
   }
   interface GgDirectory {}
+  interface GgEditRequest {
+    'gearById'?: string;
+    'modalCtrl'?: HTMLIonModalControllerElement;
+  }
   interface GgGear {
     'gearById'?: string;
   }
@@ -231,6 +247,7 @@ declare namespace LocalJSX {
     'gg-auth': GgAuth;
     'gg-checkinout': GgCheckinout;
     'gg-directory': GgDirectory;
+    'gg-edit-request': GgEditRequest;
     'gg-gear': GgGear;
     'gg-gear-view': GgGearView;
     'gg-home': GgHome;
@@ -256,6 +273,7 @@ declare module "@stencil/core" {
       'gg-auth': LocalJSX.GgAuth & JSXBase.HTMLAttributes<HTMLGgAuthElement>;
       'gg-checkinout': LocalJSX.GgCheckinout & JSXBase.HTMLAttributes<HTMLGgCheckinoutElement>;
       'gg-directory': LocalJSX.GgDirectory & JSXBase.HTMLAttributes<HTMLGgDirectoryElement>;
+      'gg-edit-request': LocalJSX.GgEditRequest & JSXBase.HTMLAttributes<HTMLGgEditRequestElement>;
       'gg-gear': LocalJSX.GgGear & JSXBase.HTMLAttributes<HTMLGgGearElement>;
       'gg-gear-view': LocalJSX.GgGearView & JSXBase.HTMLAttributes<HTMLGgGearViewElement>;
       'gg-home': LocalJSX.GgHome & JSXBase.HTMLAttributes<HTMLGgHomeElement>;

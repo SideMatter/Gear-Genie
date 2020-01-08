@@ -93,6 +93,9 @@ componentDidLoad() {
           <ion-route url="/home" component="gg-home" componentProps={{
               gearById: this.gearById
             }}/>
+            <ion-route url="/edit" component="gg-edit-request" componentProps={{
+              gearById: this.gearById
+            }}/>
           <ion-route url="/gear" component="gg-gear" componentProps={{
               gearById: this.gearById
             }}/>

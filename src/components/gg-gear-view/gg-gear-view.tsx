@@ -113,6 +113,7 @@ export class GgGearView {
                         <ion-card-Header>
                             <ion-icon icon="flash" slot="Start"></ion-icon>
                             <ion-card-title>Flash Check Out</ion-card-title>
+                            <ion-card-subtitle>Only use this if you are at school checking out the gear in class. If you want to reserve gear click the request button at the bottom of the page</ion-card-subtitle>
                         </ion-card-Header>
                         <ion-card-content>
                             <ion-list>

@@ -127,15 +127,20 @@ export class GgRequests {
         const modal = await modalCtrl.create(options);
         modal.present();
     }
-    presentToast() {
-        const toast = document.createElement('ion-toast');
-        toast.message = 'Editing requests is not developed yet. If you need to change something, just make a new request AND tell Alex so he can delete the old one. Its on my to-do list of things to fix';
-        toast.duration = 4000;
-      
-        document.body.appendChild(toast);
-        return toast.present();
+   
+      async showModal(request: Requests) {
+        const modalCtrl = modalController;
+        const modalOptions: ModalOptions = {
+          component: 'gg-edit-request',
+          backdropDismiss: false,
+          componentProps: {
+            modalCtrl,
+            request
+          }
+        };
+        const modal = await modalCtrl.create(modalOptions);
+        modal.present();
       }
-  
 
 
     render() {
@@ -222,6 +227,11 @@ export class GgRequests {
                                     expand="block"
                                     shape="round"
                     color="tertiary"><ion-icon name="trash" slot="start"></ion-icon>Delete Request</ion-button>
+                      <ion-button
+                                    onClick={() => this.showModal(requests)}
+                                    expand="block"
+                                    shape="round"
+                    color="success"><ion-icon name="trash" slot="start"></ion-icon>Edit Request</ion-button>
                                 <ion-chip color="primary">
                                     <ion-icon name="time"></ion-icon>
                                     <ion-label>{requests.periodfilming}</ion-label>
