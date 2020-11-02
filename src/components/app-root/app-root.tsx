@@ -30,17 +30,9 @@ export class AppRoot {
       icon: 'albums'
     },
 
-    {
-      title: 'Directory',
-      url: '/directory',
-      icon: 'contacts'
-    },
+    
 
-    {
-      title: 'Profile',
-      url: '/profile',
-      icon: 'contact'
-    }
+    
   ];
   gear: Gear[];
   generateGearById(gear: Gear[]){
@@ -99,15 +91,14 @@ componentDidLoad() {
           <ion-route url="/gear" component="gg-gear" componentProps={{
               gearById: this.gearById
             }}/>
-            <ion-route url="/new-badge" component="gg-new-badge"
-            />
+           
           <ion-route url="/requests" component="gg-requests" componentProps={{
               gearById: this.gearById
             }}/>
           <ion-route url="/directory" component="gg-directory" componentProps={{
               gearById: this.gearById
             }}/>
-            <ion-route url="/tv" component="gg-tv"/>
+          
           <ion-route url="/profile" component="gg-profile" componentProps={{
               gearById: this.gearById
             }}/>
