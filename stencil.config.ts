@@ -9,9 +9,4 @@ export const config: Config = {
   }],
   globalScript: 'src/global/app.ts',
   globalStyle: 'src/global/app.css',
-  commonjs: {
-    namedExports: {
-      'node_modules/idb/build/idb.js': ['openDb']
-    }
-  }
 };

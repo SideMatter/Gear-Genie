@@ -12,7 +12,7 @@ import { Requests, Gear } from '../../interfaces';
 export class GgEditRequest {
     Requests : Requests
     @Prop()
-    modalCtrl : HTMLIonModalControllerElement;
+    modalCtrl : HTMLIonModalElement;
     @State()
     requestedGear : string[] = [];
     @Prop() 

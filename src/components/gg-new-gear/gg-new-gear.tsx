@@ -18,7 +18,7 @@ export class GgNewGear {
 
     }
     @Prop()
-    modalCtrl : HTMLIonModalControllerElement;
+    modalCtrl : HTMLIonModalElement
 
     closeModal() {
         this

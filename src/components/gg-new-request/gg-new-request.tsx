@@ -27,7 +27,7 @@ export class GgNewRequest {
         requesttype: "Request"
     }
     @Prop()
-    modalCtrl : HTMLIonModalControllerElement;
+    modalCtrl : HTMLIonModalElement
     @State()
     requestedGear : string[] = [];
     @Prop() 
